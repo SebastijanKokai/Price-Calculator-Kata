@@ -27,7 +27,9 @@ namespace Challenge
                 product.NameOfProduct = txtBoxName.Text;
                 product.Price = Decimal.Parse(txtBoxPrice.Text);
                 product.Upc = Int32.Parse(txtBoxUPC.Text);
-                product.Tax = 0.2;
+                product.Tax = Double.Parse(txtBoxTax.Text);
+                product.Discount = Double.Parse(txtBoxDiscount.Text);
+
                 mainForm.products.Add(product);
                 nameOfProduct = product.NameOfProduct;
                 Close();

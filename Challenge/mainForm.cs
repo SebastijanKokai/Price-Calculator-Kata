@@ -34,7 +34,19 @@ namespace Challenge
             {
                 if(products[i].NameOfProduct == (string)cbBoxProducts.SelectedItem)
                 {
-                    products[i].Tax = Convert.ToDouble(textBox1.Text);
+                    products[i].Tax = Convert.ToDouble(txtBoxChangedTax.Text);
+                }
+            }
+        }
+
+        private void changeDiscountButton_Click(object sender, EventArgs e)
+        {
+            //changing the discount for a product
+            for (int i = 0; i < products.Count; i++)
+            {
+                if (products[i].NameOfProduct == (string)cbBoxProducts.SelectedItem)
+                {
+                    products[i].Discount = Convert.ToDouble(txtBoxChangedDiscount.Text);
                 }
             }
         }
@@ -58,20 +70,14 @@ namespace Challenge
         private void writeProductsButton_Click(object sender, EventArgs e)
         {
             //writing down all products and their attributes
-            richTextBox1.Clear();
+            displayRichTxtBox.Clear();
             foreach(Product product in products)
             {
-                richTextBox1.Text += (product.ToString() + "\n" + 
-                    "Product price reported as $" + product.Price + 
-                    " before tax and $" + 
-                    Math.Round((double)product.Price * (1 + product.Tax),2).ToString()+
-                    " after " + product.Tax*100 + "% tax" + "\n");
+                displayRichTxtBox.Text += product.ToString();
+                   
             }
         }
 
-        public void addItem(string item)
-        {
-            cbBoxProducts.Items.Add(item);
-        }
+        
     }
 }

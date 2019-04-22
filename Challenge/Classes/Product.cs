@@ -8,39 +8,13 @@ namespace Challenge.Classes
 {
     public class Product
     {
-        string nameOfProduct;
-        int upc;
         decimal price;
-        double tax;
 
-        public Product()
-        {
-            tax = 0.2;
-        }
+        public double Discount { get; set; }
 
-        public string NameOfProduct
-        {
-            get
-            {
-                return this.nameOfProduct;
-            }
-            set
-            {
-                this.nameOfProduct = value;
-            }
-        }
+        public string NameOfProduct { get; set; }
 
-        public int Upc
-        {
-            get
-            {
-                return this.upc;
-            }
-            set
-            {
-                this.upc = value;
-            }
-        }
+        public int Upc { get; set; }
 
         public decimal Price
         {
@@ -54,22 +28,29 @@ namespace Challenge.Classes
             }
         }
 
-        public double Tax
-        {
-            get
-            {
-                return this.tax;
-            }
-            set
-            {
-                this.tax = value;
-            }
-        }
+        public double Tax { get; set; }
 
         public override string ToString()
         {
             return "Sample product: " + NameOfProduct +
-                ", UPC = " + Upc.ToString() + ", price = $" + Price.ToString();
+                ", UPC = " + Upc.ToString() + ", price = $" + 
+                Price.ToString() + "\n" +
+                "Tax=" + Tax * 100 + "%, Discount=" +
+                Discount * 100 + "%\n" +
+                "Tax amount = $" + WhatIsTax() +
+                "; Discount amount = $" + WhatIsDiscount() +
+                "\nPrice before = $" + Price + ", Price after = $" +
+                ((double)Price + WhatIsTax() - WhatIsDiscount()) + "\n\n";
+        }
+
+        public double WhatIsTax()
+        {
+            return Math.Round((double)Price * Tax,2);
+        }
+
+        public double WhatIsDiscount()
+        {
+            return Math.Round((double)Price * Discount,2);
         }
     }
 }
