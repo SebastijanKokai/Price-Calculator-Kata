@@ -1,0 +1,11 @@
+D:\#Fakultet\Github Challenge\Challenge\Challenge\bin\Debug\Challenge.exe.config
+D:\#Fakultet\Github Challenge\Challenge\Challenge\bin\Debug\Challenge.exe
+D:\#Fakultet\Github Challenge\Challenge\Challenge\bin\Debug\Challenge.pdb
+D:\#Fakultet\Github Challenge\Challenge\Challenge\obj\Debug\Challenge.addProduct.resources
+D:\#Fakultet\Github Challenge\Challenge\Challenge\obj\Debug\Challenge.mainForm.resources
+D:\#Fakultet\Github Challenge\Challenge\Challenge\obj\Debug\Challenge.Properties.Resources.resources
+D:\#Fakultet\Github Challenge\Challenge\Challenge\obj\Debug\Challenge.csproj.GenerateResource.cache
+D:\#Fakultet\Github Challenge\Challenge\Challenge\obj\Debug\Challenge.csproj.CoreCompileInputs.cache
+D:\#Fakultet\Github Challenge\Challenge\Challenge\obj\Debug\Challenge.exe
+D:\#Fakultet\Github Challenge\Challenge\Challenge\obj\Debug\Challenge.pdb
+D:\#Fakultet\Github Challenge\Challenge\Challenge\obj\Debug\Challenge.csprojAssemblyReference.cache
