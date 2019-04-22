@@ -32,9 +32,9 @@ namespace Challenge
             //changing the tax for a product
             for(int i = 0; i < products.Count; i++)
             {
-                if(products[i].NameOfProduct == (string)cbBoxProducts.SelectedValue)
+                if(products[i].NameOfProduct == (string)cbBoxProducts.SelectedItem)
                 {
-                    MessageBox.Show("Hello love.");
+                    products[i].Tax = Convert.ToDouble(textBox1.Text);
                 }
             }
         }
