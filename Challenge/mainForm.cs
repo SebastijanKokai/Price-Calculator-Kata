@@ -78,6 +78,28 @@ namespace Challenge
             }
         }
 
-        
+        private void WriteProductButton_Click(object sender, EventArgs e)
+        {
+            displayRichTxtBox.Clear();
+
+            //program displays discount amount via msgBox for the selected product
+            if(cbBoxProducts.SelectedItem != null)
+            {
+                foreach(Product product in products)
+                {
+                    if (product.NameOfProduct == (string)cbBoxProducts.SelectedItem)
+                    {
+                        displayRichTxtBox.Text += product.ToString();
+
+                        //Show the price of product
+                        MessageBox.Show("Price of product: $" + product.Price);
+
+                        //If discount is higher than 0, show the amount
+                        if(product.WhatIsDiscount() > 0)
+                        MessageBox.Show("Discount of product: $"  + product.WhatIsDiscount());
+                    }
+                }
+            }
+        }
     }
 }

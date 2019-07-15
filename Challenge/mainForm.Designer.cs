@@ -39,6 +39,7 @@
             this.txtBoxChangedDiscount = new System.Windows.Forms.TextBox();
             this.changeDiscountButton = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
+            this.writeProductButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtBoxChangedTax
@@ -103,7 +104,7 @@
             // 
             // writeProductsButton
             // 
-            this.writeProductsButton.Location = new System.Drawing.Point(12, 156);
+            this.writeProductsButton.Location = new System.Drawing.Point(558, 155);
             this.writeProductsButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.writeProductsButton.Name = "writeProductsButton";
             this.writeProductsButton.Size = new System.Drawing.Size(121, 31);
@@ -148,11 +149,22 @@
             this.label3.TabIndex = 10;
             this.label3.Text = "Product:";
             // 
+            // writeProductButton
+            // 
+            this.writeProductButton.Location = new System.Drawing.Point(12, 148);
+            this.writeProductButton.Name = "writeProductButton";
+            this.writeProductButton.Size = new System.Drawing.Size(140, 38);
+            this.writeProductButton.TabIndex = 11;
+            this.writeProductButton.Text = "Write one product";
+            this.writeProductButton.UseVisualStyleBackColor = true;
+            this.writeProductButton.Click += new System.EventHandler(this.WriteProductButton_Click);
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(705, 382);
+            this.Controls.Add(this.writeProductButton);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.changeDiscountButton);
             this.Controls.Add(this.txtBoxChangedDiscount);
@@ -188,6 +200,7 @@
         private System.Windows.Forms.TextBox txtBoxChangedDiscount;
         private System.Windows.Forms.Button changeDiscountButton;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button writeProductButton;
     }
 }
 

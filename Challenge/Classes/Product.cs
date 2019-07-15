@@ -32,15 +32,18 @@ namespace Challenge.Classes
 
         public override string ToString()
         {
-            return "Sample product: " + NameOfProduct +
-                ", UPC = " + Upc.ToString() + ", price = $" + 
-                Price.ToString() + "\n" +
-                "Tax=" + Tax * 100 + "%, Discount=" +
-                Discount * 100 + "%\n" +
-                "Tax amount = $" + WhatIsTax() +
-                "; Discount amount = $" + WhatIsDiscount() +
-                "\nPrice before = $" + Price + ", Price after = $" +
-                ((double)Price + WhatIsTax() - WhatIsDiscount()) + "\n\n";
+            //display 'no discount' if discount == 0
+            string discount = WhatIsDiscount() == 0 ? "no discount" : "$"+WhatIsDiscount().ToString();
+
+            //return 
+            //$"Sample product: {NameOfProduct}, UPC = {Upc.ToString()}, Price = ${Price.ToString()}\n" +
+            //$"Tax = {Tax*100}% Discount = {Discount*100}%\n" +
+            //$"Tax amount = ${WhatIsTax()}; Discount amount = {discount}\n" +
+            //$"Price before = ${Price}, Price after = ${(double)Price + WhatIsTax() - WhatIsDiscount()}\n\n";
+
+            return
+            $"Sample product: {NameOfProduct}, UPC = {Upc.ToString()}, Price = ${Price.ToString()}\n" +
+            $"Tax = {Tax * 100}% Discount = {Discount * 100}%\n\n";
         }
 
         public double WhatIsTax()
