@@ -29,36 +29,47 @@ namespace Challenge
 
         private void changeTaxButton_Click(object sender, EventArgs e)
         {
-            //changing the tax for a product
-            for(int i = 0; i < products.Count; i++)
+            //changing the tax for products
+            try
             {
-                if(products[i].NameOfProduct == (string)cbBoxProducts.SelectedItem)
-                {
-                    products[i].Tax = Convert.ToDouble(txtBoxChangedTax.Text);
-                }
+                Product.Tax = Convert.ToDouble(txtBoxChangedTax.Text);
+                txtBoxChangedTax.Clear();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
         private void changeDiscountButton_Click(object sender, EventArgs e)
         {
-            //changing the discount for a product
-            for (int i = 0; i < products.Count; i++)
+            //changing the selective discount for a product
+            if (cbBoxProducts.SelectedItem != null)
             {
-                if (products[i].NameOfProduct == (string)cbBoxProducts.SelectedItem)
+                try
                 {
-                    products[i].Discount = Convert.ToDouble(txtBoxChangedDiscount.Text);
+                    Product.SelectiveDiscount.Discount = Convert.ToDouble(txtBoxChangedDiscount.Text);
+                    Product.SelectiveDiscount.UPC = Int32.Parse(cbBoxProducts.Text);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                finally
+                {
+                    txtBoxChangedDiscount.Clear();
                 }
             }
         }
 
         private void addProductButton_Click(object sender, EventArgs e)
         {
-            //I used a getter to get the Name of the product
+            //I used a getter to get the Upc of the product
             addProduct form = new addProduct();
             DialogResult dialogResult = form.ShowDialog();
             if(dialogResult == DialogResult.OK)
             {
-                cbBoxProducts.Items.Add(form.NameOfProduct);
+                cbBoxProducts.Items.Add(form.UPC);
             }
         }
 
@@ -74,7 +85,6 @@ namespace Challenge
             foreach(Product product in products)
             {
                 displayRichTxtBox.Text += product.ToString();
-                   
             }
         }
 
@@ -87,18 +97,34 @@ namespace Challenge
             {
                 foreach(Product product in products)
                 {
-                    if (product.NameOfProduct == (string)cbBoxProducts.SelectedItem)
+                    if (product.Upc == (int)cbBoxProducts.SelectedItem)
                     {
                         displayRichTxtBox.Text += product.ToString();
 
-                        //Show the price of product
-                        MessageBox.Show("Price of product: $" + product.Price);
-
                         //If discount is higher than 0, show the amount
-                        if(product.WhatIsDiscount() > 0)
-                        MessageBox.Show("Discount of product: $"  + product.WhatIsDiscount());
+                        if(product.WhatIsUniversalDiscount() > 0 || product.WhatIsSelectiveDiscount() > 0)
+                        MessageBox.Show("Discount of product: $"  + product.ReturnFullDiscount());
+
+                        //if he found the product, no need to search any longer
+                        break;
                     }
                 }
+            }
+        }
+
+        private void applyUniDiscButton_Click(object sender, EventArgs e)
+        {
+
+            //applying universal discount for all products
+            try
+            {
+                double discount = Convert.ToDouble(txtBoxUniDisc.Text);
+
+                Product.UniversalDiscount = discount;
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
     }

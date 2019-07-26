@@ -13,13 +13,13 @@ namespace Challenge
 {
     public partial class addProduct : Form
     {
-        string nameOfProduct;
+        int upcOfProduct;
         public addProduct()
         {
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void addButton_Click(object sender, EventArgs e)
         {
             try
             {
@@ -27,28 +27,29 @@ namespace Challenge
                 product.NameOfProduct = txtBoxName.Text;
                 product.Price = Decimal.Parse(txtBoxPrice.Text);
                 product.Upc = Int32.Parse(txtBoxUPC.Text);
-                product.Tax = Double.Parse(txtBoxTax.Text);
-                product.Discount = Double.Parse(txtBoxDiscount.Text);
 
                 mainForm.products.Add(product);
-                nameOfProduct = product.NameOfProduct;
+                upcOfProduct = product.Upc;
                 Close();
             }
             catch(Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-            
         }
 
         private void addProduct_Load(object sender, EventArgs e)
         {
 
         }
-
-        public string NameOfProduct
+        public int UPC
         {
-            get { return nameOfProduct; }
+            get { return upcOfProduct; }
+        }
+
+        private void closeButton_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

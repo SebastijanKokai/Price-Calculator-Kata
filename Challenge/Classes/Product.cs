@@ -10,11 +10,15 @@ namespace Challenge.Classes
     {
         decimal price;
 
-        public double Discount { get; set; }
+        //by default discount is zero
+        static double universalDiscount = 0;
 
-        public string NameOfProduct { get; set; }
+        string nameOfProduct;
 
-        public int Upc { get; set; }
+        int upc;
+
+        //UPC-discount only for one product
+        public static SelectiveDiscount SelectiveDiscount;
 
         public decimal Price
         {
@@ -27,23 +31,55 @@ namespace Challenge.Classes
                 this.price = value;
             }
         }
+        public static double UniversalDiscount
+        {
+            get { return universalDiscount; }
+            set { universalDiscount = value; }
+        }
 
-        public double Tax { get; set; }
+        public string NameOfProduct
+        {
+            get { return nameOfProduct; }
+            set { nameOfProduct = value; }
+        }
 
+        public int Upc
+        {
+            get { return upc; }
+            set { upc = value; }
+        }
+
+        public double PriceAfterTaxes
+        {
+            get
+            {
+               return ((double)Price + WhatIsTax() - WhatIsUniversalDiscount() - WhatIsSelectiveDiscount());
+            }
+        }
+
+        public static double Tax { get; set; } = 0.2;
+
+        //displaying the product attributes
         public override string ToString()
         {
-            //display 'no discount' if discount == 0
-            string discount = WhatIsDiscount() == 0 ? "no discount" : "$"+WhatIsDiscount().ToString();
+            //display 'no universal discount' if universalDiscount == 0
+            string universalDiscount = UniversalDiscount == 0 ? "no discount" : UniversalDiscount*100 + "%";
 
-            //return 
-            //$"Sample product: {NameOfProduct}, UPC = {Upc.ToString()}, Price = ${Price.ToString()}\n" +
-            //$"Tax = {Tax*100}% Discount = {Discount*100}%\n" +
-            //$"Tax amount = ${WhatIsTax()}; Discount amount = {discount}\n" +
-            //$"Price before = ${Price}, Price after = ${(double)Price + WhatIsTax() - WhatIsDiscount()}\n\n";
+            //display nothing if selectiveDiscount == 0
+            string selectiveDiscount = SelectiveDiscount.Discount == 0 ? "" : $"UPC discount = {SelectiveDiscount.Discount*100}% for UPC = {SelectiveDiscount.UPC}";
 
+            //display no calculation involving this UPC if it has no discounts
+            string selectiveDiscountPerc = SelectiveDiscount.UPC != Upc ? "" : $"UPC-discount = ${Price} * {SelectiveDiscount.Discount * 100}% = ${WhatIsSelectiveDiscount()}";
+
+            //display Definition of done
             return
-            $"Sample product: {NameOfProduct}, UPC = {Upc.ToString()}, Price = ${Price.ToString()}\n" +
-            $"Tax = {Tax * 100}% Discount = {Discount * 100}%\n\n";
+            $"Sample product: {NameOfProduct}, UPC = {Upc}, Price = ${Price}\n" +
+            $"Tax = {Tax * 100}%, Universal discount = {universalDiscount}, {selectiveDiscount}\n" +
+            $"Tax amount = ${Price} * {Tax * 100}% = ${WhatIsTax()}; " +
+            $"discount = ${Price} * {UniversalDiscount * 100}% = ${WhatIsUniversalDiscount()}; " +
+            $"{selectiveDiscountPerc}\n" +
+            $"Price after: ${PriceAfterTaxes}";
+
         }
 
         public double WhatIsTax()
@@ -51,9 +87,28 @@ namespace Challenge.Classes
             return Math.Round((double)Price * Tax,2);
         }
 
-        public double WhatIsDiscount()
+        public double WhatIsUniversalDiscount()
         {
-            return Math.Round((double)Price * Discount,2);
+            return Math.Round((double)Price * UniversalDiscount,2);
         }
+
+        public double WhatIsSelectiveDiscount()
+        {
+            if (SelectiveDiscount.UPC == Upc)
+                return Math.Round((double)Price * SelectiveDiscount.Discount, 2);
+            else
+                return 0;
+        }
+
+        public double ReturnFullDiscount()
+        {
+            return WhatIsSelectiveDiscount() + WhatIsUniversalDiscount();
+        }
+    }
+
+    public struct SelectiveDiscount
+    {
+        public int UPC { get; set; }
+        public double Discount { get; set; }
     }
 }

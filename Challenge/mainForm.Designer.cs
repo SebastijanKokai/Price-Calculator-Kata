@@ -40,11 +40,14 @@
             this.changeDiscountButton = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.writeProductButton = new System.Windows.Forms.Button();
+            this.txtBoxUniDisc = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.applyUniDiscButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtBoxChangedTax
             // 
-            this.txtBoxChangedTax.Location = new System.Drawing.Point(138, 66);
+            this.txtBoxChangedTax.Location = new System.Drawing.Point(157, 66);
             this.txtBoxChangedTax.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtBoxChangedTax.Name = "txtBoxChangedTax";
             this.txtBoxChangedTax.Size = new System.Drawing.Size(100, 22);
@@ -62,7 +65,7 @@
             // 
             // changeTaxButton
             // 
-            this.changeTaxButton.Location = new System.Drawing.Point(244, 59);
+            this.changeTaxButton.Location = new System.Drawing.Point(263, 59);
             this.changeTaxButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.changeTaxButton.Name = "changeTaxButton";
             this.changeTaxButton.Size = new System.Drawing.Size(131, 36);
@@ -73,7 +76,7 @@
             // 
             // displayRichTxtBox
             // 
-            this.displayRichTxtBox.Location = new System.Drawing.Point(12, 193);
+            this.displayRichTxtBox.Location = new System.Drawing.Point(12, 223);
             this.displayRichTxtBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.displayRichTxtBox.Name = "displayRichTxtBox";
             this.displayRichTxtBox.ReadOnly = true;
@@ -83,7 +86,7 @@
             // 
             // addProductButton
             // 
-            this.addProductButton.Location = new System.Drawing.Point(244, 13);
+            this.addProductButton.Location = new System.Drawing.Point(263, 13);
             this.addProductButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.addProductButton.Name = "addProductButton";
             this.addProductButton.Size = new System.Drawing.Size(131, 36);
@@ -95,7 +98,7 @@
             // cbBoxProducts
             // 
             this.cbBoxProducts.FormattingEnabled = true;
-            this.cbBoxProducts.Location = new System.Drawing.Point(138, 20);
+            this.cbBoxProducts.Location = new System.Drawing.Point(157, 20);
             this.cbBoxProducts.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cbBoxProducts.Name = "cbBoxProducts";
             this.cbBoxProducts.Size = new System.Drawing.Size(100, 24);
@@ -104,7 +107,7 @@
             // 
             // writeProductsButton
             // 
-            this.writeProductsButton.Location = new System.Drawing.Point(558, 155);
+            this.writeProductsButton.Location = new System.Drawing.Point(558, 188);
             this.writeProductsButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.writeProductsButton.Name = "writeProductsButton";
             this.writeProductsButton.Size = new System.Drawing.Size(121, 31);
@@ -116,27 +119,27 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(21, 113);
+            this.label2.Location = new System.Drawing.Point(21, 111);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(122, 17);
+            this.label2.Size = new System.Drawing.Size(128, 17);
             this.label2.TabIndex = 7;
-            this.label2.Text = "Current Discount: ";
+            this.label2.Text = "Selective Discount:";
             // 
             // txtBoxChangedDiscount
             // 
-            this.txtBoxChangedDiscount.Location = new System.Drawing.Point(138, 108);
+            this.txtBoxChangedDiscount.Location = new System.Drawing.Point(157, 108);
             this.txtBoxChangedDiscount.Name = "txtBoxChangedDiscount";
             this.txtBoxChangedDiscount.Size = new System.Drawing.Size(100, 22);
             this.txtBoxChangedDiscount.TabIndex = 8;
             // 
             // changeDiscountButton
             // 
-            this.changeDiscountButton.Location = new System.Drawing.Point(244, 99);
+            this.changeDiscountButton.Location = new System.Drawing.Point(263, 99);
             this.changeDiscountButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.changeDiscountButton.Name = "changeDiscountButton";
             this.changeDiscountButton.Size = new System.Drawing.Size(131, 36);
             this.changeDiscountButton.TabIndex = 9;
-            this.changeDiscountButton.Text = "Change discount";
+            this.changeDiscountButton.Text = "Set Discount";
             this.changeDiscountButton.UseVisualStyleBackColor = true;
             this.changeDiscountButton.Click += new System.EventHandler(this.changeDiscountButton_Click);
             // 
@@ -151,19 +154,48 @@
             // 
             // writeProductButton
             // 
-            this.writeProductButton.Location = new System.Drawing.Point(12, 148);
+            this.writeProductButton.Location = new System.Drawing.Point(12, 188);
             this.writeProductButton.Name = "writeProductButton";
-            this.writeProductButton.Size = new System.Drawing.Size(140, 38);
+            this.writeProductButton.Size = new System.Drawing.Size(144, 30);
             this.writeProductButton.TabIndex = 11;
-            this.writeProductButton.Text = "Write one product";
+            this.writeProductButton.Text = "Selected product";
             this.writeProductButton.UseVisualStyleBackColor = true;
             this.writeProductButton.Click += new System.EventHandler(this.WriteProductButton_Click);
+            // 
+            // txtBoxUniDisc
+            // 
+            this.txtBoxUniDisc.Location = new System.Drawing.Point(310, 192);
+            this.txtBoxUniDisc.Name = "txtBoxUniDisc";
+            this.txtBoxUniDisc.Size = new System.Drawing.Size(100, 22);
+            this.txtBoxUniDisc.TabIndex = 12;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(176, 195);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(128, 17);
+            this.label4.TabIndex = 13;
+            this.label4.Text = "Universal discount:";
+            // 
+            // applyUniDiscButton
+            // 
+            this.applyUniDiscButton.Location = new System.Drawing.Point(416, 188);
+            this.applyUniDiscButton.Name = "applyUniDiscButton";
+            this.applyUniDiscButton.Size = new System.Drawing.Size(121, 30);
+            this.applyUniDiscButton.TabIndex = 14;
+            this.applyUniDiscButton.Text = "Apply";
+            this.applyUniDiscButton.UseVisualStyleBackColor = true;
+            this.applyUniDiscButton.Click += new System.EventHandler(this.applyUniDiscButton_Click);
             // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(705, 382);
+            this.ClientSize = new System.Drawing.Size(705, 386);
+            this.Controls.Add(this.applyUniDiscButton);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.txtBoxUniDisc);
             this.Controls.Add(this.writeProductButton);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.changeDiscountButton);
@@ -201,6 +233,9 @@
         private System.Windows.Forms.Button changeDiscountButton;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button writeProductButton;
+        private System.Windows.Forms.TextBox txtBoxUniDisc;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button applyUniDiscButton;
     }
 }
 

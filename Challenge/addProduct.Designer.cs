@@ -34,16 +34,13 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.txtBoxDiscount = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.txtBoxTax = new System.Windows.Forms.TextBox();
+            this.addButton = new System.Windows.Forms.Button();
+            this.closeButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtBoxName
             // 
-            this.txtBoxName.Location = new System.Drawing.Point(123, 39);
+            this.txtBoxName.Location = new System.Drawing.Point(164, 41);
             this.txtBoxName.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtBoxName.Name = "txtBoxName";
             this.txtBoxName.Size = new System.Drawing.Size(100, 22);
@@ -51,7 +48,7 @@
             // 
             // txtBoxPrice
             // 
-            this.txtBoxPrice.Location = new System.Drawing.Point(123, 81);
+            this.txtBoxPrice.Location = new System.Drawing.Point(164, 83);
             this.txtBoxPrice.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtBoxPrice.Name = "txtBoxPrice";
             this.txtBoxPrice.Size = new System.Drawing.Size(100, 22);
@@ -59,7 +56,7 @@
             // 
             // txtBoxUPC
             // 
-            this.txtBoxUPC.Location = new System.Drawing.Point(123, 121);
+            this.txtBoxUPC.Location = new System.Drawing.Point(164, 123);
             this.txtBoxUPC.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtBoxUPC.Name = "txtBoxUPC";
             this.txtBoxUPC.Size = new System.Drawing.Size(100, 22);
@@ -92,60 +89,39 @@
             this.label3.TabIndex = 6;
             this.label3.Text = "UPC";
             // 
-            // button1
+            // addButton
             // 
-            this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.button1.Location = new System.Drawing.Point(30, 245);
-            this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "Add";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.addButton.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.addButton.Location = new System.Drawing.Point(30, 168);
+            this.addButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.addButton.Name = "addButton";
+            this.addButton.Size = new System.Drawing.Size(75, 23);
+            this.addButton.TabIndex = 7;
+            this.addButton.Text = "Add";
+            this.addButton.UseVisualStyleBackColor = true;
+            this.addButton.Click += new System.EventHandler(this.addButton_Click);
             // 
-            // txtBoxDiscount
+            // closeButton
             // 
-            this.txtBoxDiscount.Location = new System.Drawing.Point(123, 159);
-            this.txtBoxDiscount.Name = "txtBoxDiscount";
-            this.txtBoxDiscount.Size = new System.Drawing.Size(100, 22);
-            this.txtBoxDiscount.TabIndex = 8;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(27, 164);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(63, 17);
-            this.label4.TabIndex = 9;
-            this.label4.Text = "Discount";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(27, 204);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(31, 17);
-            this.label5.TabIndex = 10;
-            this.label5.Text = "Tax";
-            // 
-            // txtBoxTax
-            // 
-            this.txtBoxTax.Location = new System.Drawing.Point(123, 199);
-            this.txtBoxTax.Name = "txtBoxTax";
-            this.txtBoxTax.Size = new System.Drawing.Size(100, 22);
-            this.txtBoxTax.TabIndex = 11;
+            this.closeButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.closeButton.Location = new System.Drawing.Point(189, 168);
+            this.closeButton.Name = "closeButton";
+            this.closeButton.Size = new System.Drawing.Size(75, 23);
+            this.closeButton.TabIndex = 8;
+            this.closeButton.Text = "Close";
+            this.closeButton.UseVisualStyleBackColor = true;
+            this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
             // 
             // addProduct
             // 
+            this.AcceptButton = this.addButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(266, 284);
-            this.Controls.Add(this.txtBoxTax);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.txtBoxDiscount);
-            this.Controls.Add(this.button1);
+            this.CancelButton = this.closeButton;
+            this.ClientSize = new System.Drawing.Size(290, 207);
+            this.ControlBox = false;
+            this.Controls.Add(this.closeButton);
+            this.Controls.Add(this.addButton);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -154,6 +130,7 @@
             this.Controls.Add(this.txtBoxName);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "addProduct";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "addProduct";
             this.Load += new System.EventHandler(this.addProduct_Load);
             this.ResumeLayout(false);
@@ -169,10 +146,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox txtBoxDiscount;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox txtBoxTax;
+        private System.Windows.Forms.Button addButton;
+        private System.Windows.Forms.Button closeButton;
     }
 }
