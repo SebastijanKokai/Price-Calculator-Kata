@@ -48,8 +48,12 @@ namespace Challenge
             {
                 try
                 {
-                    Product.SelectiveDiscount.Discount = Convert.ToDouble(txtBoxChangedDiscount.Text);
-                    Product.SelectiveDiscount.UPC = Int32.Parse(cbBoxProducts.Text);
+                    Product.selectiveDiscount.Discount = Convert.ToDouble(txtBoxChangedDiscount.Text);
+                    Product.selectiveDiscount.UPC = Int32.Parse(cbBoxProducts.Text);
+
+                    DialogResult result = MessageBox.Show("Do you want the discount after tax? ('No' is for before tax)", "Taxing", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (result == DialogResult.No)
+                        Product.selectiveDiscount.beforeTax = true;
                 }
                 catch (Exception ex)
                 {
@@ -91,7 +95,7 @@ namespace Challenge
         private void WriteProductButton_Click(object sender, EventArgs e)
         {
             displayRichTxtBox.Clear();
-
+            
             //program displays discount amount via msgBox for the selected product
             if(cbBoxProducts.SelectedItem != null)
             {
@@ -99,7 +103,11 @@ namespace Challenge
                 {
                     if (product.Upc == (int)cbBoxProducts.SelectedItem)
                     {
-                        displayRichTxtBox.Text += product.ToString();
+                            displayRichTxtBox.Text += $"Product name: {product.NameOfProduct}\n" +
+                            $"Tax: ${product.WhatIsTax().ToString()}\n"+
+                            $"Discount: ${product.WhatIsUniversalDiscount().ToString()}\n"+
+                            $"UPC-discount: ${product.WhatIsSelectiveDiscount().ToString()}\n"+
+                            $"Price: ${product.PriceAfterTaxes}\n";
 
                         //If discount is higher than 0, show the amount
                         if(product.WhatIsUniversalDiscount() > 0 || product.WhatIsSelectiveDiscount() > 0)
@@ -118,9 +126,11 @@ namespace Challenge
             //applying universal discount for all products
             try
             {
-                double discount = Convert.ToDouble(txtBoxUniDisc.Text);
+                Product.UniversalDiscount = Convert.ToDouble(txtBoxUniDisc.Text);
 
-                Product.UniversalDiscount = discount;
+                DialogResult result = MessageBox.Show("Do you want the discount after tax? ('No' is for before tax)", "Taxing", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.No)
+                    Product.universalDiscount.beforeTax = true;
             }
             catch(Exception ex)
             {

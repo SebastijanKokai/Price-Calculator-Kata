@@ -10,15 +10,14 @@ namespace Challenge.Classes
     {
         decimal price;
 
-        //by default discount is zero
-        static double universalDiscount = 0;
+        public static UniversalDiscount universalDiscount;
 
         string nameOfProduct;
 
         int upc;
 
         //UPC-discount only for one product
-        public static SelectiveDiscount SelectiveDiscount;
+        public static SelectiveDiscount selectiveDiscount;
 
         public decimal Price
         {
@@ -33,8 +32,8 @@ namespace Challenge.Classes
         }
         public static double UniversalDiscount
         {
-            get { return universalDiscount; }
-            set { universalDiscount = value; }
+            get { return universalDiscount.Discount; }
+            set { universalDiscount.Discount = value; }
         }
 
         public string NameOfProduct
@@ -59,45 +58,54 @@ namespace Challenge.Classes
 
         public static double Tax { get; set; } = 0.2;
 
-        //displaying the product attributes
-        public override string ToString()
-        {
-            //display 'no universal discount' if universalDiscount == 0
-            string universalDiscount = UniversalDiscount == 0 ? "no discount" : UniversalDiscount*100 + "%";
-
-            //display nothing if selectiveDiscount == 0
-            string selectiveDiscount = SelectiveDiscount.Discount == 0 ? "" : $"UPC discount = {SelectiveDiscount.Discount*100}% for UPC = {SelectiveDiscount.UPC}";
-
-            //display no calculation involving this UPC if it has no discounts
-            string selectiveDiscountPerc = SelectiveDiscount.UPC != Upc ? "" : $"UPC-discount = ${Price} * {SelectiveDiscount.Discount * 100}% = ${WhatIsSelectiveDiscount()}";
-
-            //display Definition of done
-            return
-            $"Sample product: {NameOfProduct}, UPC = {Upc}, Price = ${Price}\n" +
-            $"Tax = {Tax * 100}%, Universal discount = {universalDiscount}, {selectiveDiscount}\n" +
-            $"Tax amount = ${Price} * {Tax * 100}% = ${WhatIsTax()}; " +
-            $"discount = ${Price} * {UniversalDiscount * 100}% = ${WhatIsUniversalDiscount()}; " +
-            $"{selectiveDiscountPerc}\n" +
-            $"Price after: ${PriceAfterTaxes}";
-
-        }
-
         public double WhatIsTax()
         {
-            return Math.Round((double)Price * Tax,2);
+            double discountedMoney = 0;
+            //is the UPC discount applied? is it > 0? is it beforeTax? if not, skip
+            if (selectiveDiscount.UPC == Upc && selectiveDiscount.Discount > 0 && selectiveDiscount.beforeTax)
+            {
+                discountedMoney += ((double)Price * selectiveDiscount.Discount);
+            }
+            //is the universalDiscount beforeTax? is it > 0? if not, skip
+            if(universalDiscount.beforeTax && universalDiscount.Discount > 0)
+            {
+                discountedMoney += ((double)Price * universalDiscount.Discount);
+            }
+
+            //if both are afterTax, then discountedMoney = 0, so nothing changes
+            double price = ((double)Price - discountedMoney) * Tax;
+            
+            return Math.Round(price, 2);
         }
 
         public double WhatIsUniversalDiscount()
         {
-            return Math.Round((double)Price * UniversalDiscount,2);
+            double discountedMoney = 0;
+            if (selectiveDiscount.UPC == Upc && selectiveDiscount.Discount > 0 && selectiveDiscount.beforeTax && !universalDiscount.beforeTax)
+            {
+                discountedMoney += ((double)Price * selectiveDiscount.Discount);
+            }
+
+            double price = ((double)Price - discountedMoney) * UniversalDiscount;
+
+            return Math.Round(price,2);
         }
 
         public double WhatIsSelectiveDiscount()
         {
-            if (SelectiveDiscount.UPC == Upc)
-                return Math.Round((double)Price * SelectiveDiscount.Discount, 2);
-            else
-                return 0;
+
+            if (selectiveDiscount.UPC == Upc)
+            {
+                double discountedMoney = 0;
+                if (universalDiscount.beforeTax && universalDiscount.Discount > 0 && !selectiveDiscount.beforeTax)
+                {
+                    discountedMoney += ((double)Price * universalDiscount.Discount);
+                }
+                double price = ((double)Price - discountedMoney) * selectiveDiscount.Discount;
+
+                return Math.Round(price, 2); 
+            }
+            return 0;
         }
 
         public double ReturnFullDiscount()
@@ -106,9 +114,20 @@ namespace Challenge.Classes
         }
     }
 
+    //using struct so I don't get 'object reference not set to an instance of an object' error
     public struct SelectiveDiscount
     {
         public int UPC { get; set; }
         public double Discount { get; set; }
+
+        public bool beforeTax;
     }
+
+    public struct UniversalDiscount
+    {
+        public double Discount { get; set; }
+
+        public bool beforeTax;
+    }
+
 }
