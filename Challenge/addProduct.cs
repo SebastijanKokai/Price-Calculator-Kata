@@ -24,9 +24,16 @@ namespace Challenge
         {
             try
             {
+                //checking if there is an existing UPC already
+                foreach (Product product in mainForm.products)
+                {
+                    if (product.Upc == Int32.Parse(txtBoxUPC.Text))
+                        throw new Exception("UPC already in use.");
+                }
+
+                product.Upc = Int32.Parse(txtBoxUPC.Text);
                 product.NameOfProduct = txtBoxName.Text;
                 product.Price = Decimal.Parse(txtBoxPrice.Text);
-                product.Upc = Int32.Parse(txtBoxUPC.Text);
 
                 mainForm.products.Add(product);
                 upcOfProduct = product.Upc;

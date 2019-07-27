@@ -45,15 +45,20 @@ namespace Challenge
         {
             //changing the selective discount for a product
             if (cbBoxProducts.SelectedItem != null)
-            {
+            { 
                 try
                 {
-                    Product.selectiveDiscount.Discount = Convert.ToDouble(txtBoxChangedDiscount.Text);
-                    Product.selectiveDiscount.UPC = Int32.Parse(cbBoxProducts.Text);
+                    foreach (Product product in products)
+                    {
+                        if((int)cbBoxProducts.SelectedItem == product.Upc)
+                        {
+                            product.selectiveDiscount.Discount = Convert.ToDouble(txtBoxChangedDiscount.Text);
 
-                    DialogResult result = MessageBox.Show("Do you want the discount after tax? ('No' is for before tax)", "Taxing", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    if (result == DialogResult.No)
-                        Product.selectiveDiscount.beforeTax = true;
+                            DialogResult result = MessageBox.Show("Do you want the discount after tax? ('No' is for before tax)", "Taxing", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                            if (result == DialogResult.No)
+                                product.selectiveDiscount.beforeTax = true;
+                        }
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -108,15 +113,41 @@ namespace Challenge
                         double addCost = 0;
                         double price = (double)product.Price;
                         double tax = product.WhatIsTax();
-                        double discounts = product.ReturnFullDiscount();
+                        double discounts = 0;
 
+                        //this string is used so I can display only necessary attributes
                         display += $"Cost: ${price}\n";
 
                         if (tax > 0)
                             display += $"Tax: ${tax}\n";
 
-                        if (discounts > 0)
+                        double uniDiscount = product.WhatIsUniversalDiscount();
+                        double upcDiscount = product.WhatIsSelectiveDiscount();
+
+                        if (uniDiscount > 0 || upcDiscount > 0)
+                        {
+                            if (uniDiscount > 0 && upcDiscount > 0)
+                            {
+                                DialogResult result = MessageBox.Show("Do you want additive discount? ('No' is for multiplicative)", "Additive/Multiplicative Discount", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                                if (result == DialogResult.No)
+                                {
+                                    discounts = product.ReturnMultiplicativeDiscount();
+                                }
+                                else
+                                {
+                                    discounts = product.ReturnAdditiveDiscount();
+                                }
+                            }
+                            else
+                            {
+                                discounts = product.ReturnAdditiveDiscount();
+                            }
+
                             display += $"Discounts: ${discounts}\n";
+                        }
+
+                            
+                        
 
                         for (int i = 0; i < product.additionalCosts.Count; i++)
                         {
@@ -136,7 +167,7 @@ namespace Challenge
 
                         double total = Math.Round(price + tax + addCost - discounts,2);
 
-                        display += $"Total: ${price+tax+addCost-discounts}";
+                        display += $"Total: ${total}";
 
                         displayRichTxtBox.Text = display;
 

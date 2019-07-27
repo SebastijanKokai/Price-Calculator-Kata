@@ -19,9 +19,11 @@ namespace Challenge.Classes
         //List for all additional costs this product has
         public List<AdditionalCosts> additionalCosts = new List<AdditionalCosts>();
 
-        //UPC-discount only for one product
-        public static SelectiveDiscount selectiveDiscount;
+        //UPC-discount as a list
+        //public List<SelectiveDiscount> selectiveDiscount = new List<SelectiveDiscount>();
 
+
+        public SelectiveDiscount selectiveDiscount;
         public decimal Price
         {
             get
@@ -73,7 +75,7 @@ namespace Challenge.Classes
         {
             double discountedMoney = 0;
             //is the UPC discount applied? is it > 0? is it beforeTax? if not, skip
-            if (selectiveDiscount.UPC == Upc && selectiveDiscount.Discount > 0 && selectiveDiscount.beforeTax)
+            if (selectiveDiscount.Discount > 0 && selectiveDiscount.beforeTax)
             {
                 discountedMoney += ((double)Price * selectiveDiscount.Discount);
             }
@@ -92,7 +94,7 @@ namespace Challenge.Classes
         public double WhatIsUniversalDiscount()
         {
             double discountedMoney = 0;
-            if (selectiveDiscount.UPC == Upc && selectiveDiscount.Discount > 0 && selectiveDiscount.beforeTax && !universalDiscount.beforeTax)
+            if (selectiveDiscount.Discount > 0 && selectiveDiscount.beforeTax && !universalDiscount.beforeTax)
             {
                 discountedMoney += ((double)Price * selectiveDiscount.Discount);
             }
@@ -104,8 +106,7 @@ namespace Challenge.Classes
 
         public double WhatIsSelectiveDiscount()
         {
-            
-            if (selectiveDiscount.UPC == Upc)
+            if (selectiveDiscount.Discount > 0)
             {
                 double discountedMoney = 0;
                 if (universalDiscount.beforeTax && universalDiscount.Discount > 0 && !selectiveDiscount.beforeTax)
@@ -114,21 +115,34 @@ namespace Challenge.Classes
                 }
                 double price = ((double)Price - discountedMoney) * selectiveDiscount.Discount;
 
-                return Math.Round(price, 2); 
+                return Math.Round(price, 2);
             }
             return 0;
         }
 
-        public double ReturnFullDiscount()
+        public double ReturnAdditiveDiscount()
         {
             return WhatIsSelectiveDiscount() + WhatIsUniversalDiscount();
+        }
+
+        public double ReturnMultiplicativeDiscount()
+        {
+            double multiplicativeDiscount = 0;
+
+            if (universalDiscount.Discount > 0 & selectiveDiscount.Discount > 0)
+            {
+                double universalDiscount = WhatIsUniversalDiscount();
+                double upcDiscount = ((double)Price - universalDiscount) * selectiveDiscount.Discount;
+                multiplicativeDiscount = upcDiscount + universalDiscount;
+            }
+
+            return multiplicativeDiscount;
         }
     }
 
     //using struct so I don't get 'object reference not set to an instance of an object' error
     public struct SelectiveDiscount
     {
-        public int UPC { get; set; }
         public double Discount { get; set; }
 
         public bool beforeTax;
