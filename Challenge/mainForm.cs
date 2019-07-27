@@ -103,15 +103,46 @@ namespace Challenge
                 {
                     if (product.Upc == (int)cbBoxProducts.SelectedItem)
                     {
-                            displayRichTxtBox.Text += $"Product name: {product.NameOfProduct}\n" +
-                            $"Tax: ${product.WhatIsTax().ToString()}\n"+
-                            $"Discount: ${product.WhatIsUniversalDiscount().ToString()}\n"+
-                            $"UPC-discount: ${product.WhatIsSelectiveDiscount().ToString()}\n"+
-                            $"Price: ${product.PriceAfterTaxes}\n";
+                        string display = "";
+
+                        double addCost = 0;
+                        double price = (double)product.Price;
+                        double tax = product.WhatIsTax();
+                        double discounts = product.ReturnFullDiscount();
+
+                        display += $"Cost: ${price}\n";
+
+                        if (tax > 0)
+                            display += $"Tax: ${tax}\n";
+
+                        if (discounts > 0)
+                            display += $"Discounts: ${discounts}\n";
+
+                        for (int i = 0; i < product.additionalCosts.Count; i++)
+                        {
+                            string nameOf = product.additionalCosts[i].NameOfAdditionalCost;
+                            bool isPercentage = product.additionalCosts[i].IsPercentage;
+                            double amount = product.additionalCosts[i].Amount;
+
+                            string sign = isPercentage ? "%" : "$";
+
+                            if (sign == "%")
+                                amount = Math.Round(price*amount, 2);
+
+                            display += $"{nameOf}: ${amount}\n";
+
+                            addCost += amount;
+                        }
+
+                        double total = Math.Round(price + tax + addCost - discounts,2);
+
+                        display += $"Total: ${price+tax+addCost-discounts}";
+
+                        displayRichTxtBox.Text = display;
 
                         //If discount is higher than 0, show the amount
-                        if(product.WhatIsUniversalDiscount() > 0 || product.WhatIsSelectiveDiscount() > 0)
-                        MessageBox.Show("Discount of product: $"  + product.ReturnFullDiscount());
+                        if (discounts > 0)
+                        MessageBox.Show("Discount of product: $"  + discounts);
 
                         //if he found the product, no need to search any longer
                         break;

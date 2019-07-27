@@ -36,6 +36,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.addButton = new System.Windows.Forms.Button();
             this.closeButton = new System.Windows.Forms.Button();
+            this.additionalCostsButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtBoxName
@@ -92,10 +93,10 @@
             // addButton
             // 
             this.addButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.addButton.Location = new System.Drawing.Point(30, 168);
+            this.addButton.Location = new System.Drawing.Point(30, 201);
             this.addButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.addButton.Name = "addButton";
-            this.addButton.Size = new System.Drawing.Size(75, 23);
+            this.addButton.Size = new System.Drawing.Size(75, 31);
             this.addButton.TabIndex = 7;
             this.addButton.Text = "Add";
             this.addButton.UseVisualStyleBackColor = true;
@@ -104,13 +105,23 @@
             // closeButton
             // 
             this.closeButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.closeButton.Location = new System.Drawing.Point(189, 168);
+            this.closeButton.Location = new System.Drawing.Point(189, 201);
             this.closeButton.Name = "closeButton";
-            this.closeButton.Size = new System.Drawing.Size(75, 23);
+            this.closeButton.Size = new System.Drawing.Size(75, 31);
             this.closeButton.TabIndex = 8;
             this.closeButton.Text = "Close";
             this.closeButton.UseVisualStyleBackColor = true;
             this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
+            // 
+            // additionalCostsButton
+            // 
+            this.additionalCostsButton.Location = new System.Drawing.Point(30, 161);
+            this.additionalCostsButton.Name = "additionalCostsButton";
+            this.additionalCostsButton.Size = new System.Drawing.Size(234, 23);
+            this.additionalCostsButton.TabIndex = 9;
+            this.additionalCostsButton.Text = "Additional costs";
+            this.additionalCostsButton.UseVisualStyleBackColor = true;
+            this.additionalCostsButton.Click += new System.EventHandler(this.AdditionalCostsButton_Click);
             // 
             // addProduct
             // 
@@ -118,8 +129,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.closeButton;
-            this.ClientSize = new System.Drawing.Size(290, 207);
+            this.ClientSize = new System.Drawing.Size(290, 251);
             this.ControlBox = false;
+            this.Controls.Add(this.additionalCostsButton);
             this.Controls.Add(this.closeButton);
             this.Controls.Add(this.addButton);
             this.Controls.Add(this.label3);
@@ -148,5 +160,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button addButton;
         private System.Windows.Forms.Button closeButton;
+        private System.Windows.Forms.Button additionalCostsButton;
     }
 }

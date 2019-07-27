@@ -34,7 +34,6 @@
             this.displayRichTxtBox = new System.Windows.Forms.RichTextBox();
             this.addProductButton = new System.Windows.Forms.Button();
             this.cbBoxProducts = new System.Windows.Forms.ComboBox();
-            this.writeProductsButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.txtBoxChangedDiscount = new System.Windows.Forms.TextBox();
             this.changeDiscountButton = new System.Windows.Forms.Button();
@@ -43,6 +42,8 @@
             this.txtBoxUniDisc = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.applyUniDiscButton = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // txtBoxChangedTax
@@ -105,17 +106,6 @@
             this.cbBoxProducts.TabIndex = 5;
             this.cbBoxProducts.SelectedIndexChanged += new System.EventHandler(this.cbBoxProducts_SelectedIndexChanged);
             // 
-            // writeProductsButton
-            // 
-            this.writeProductsButton.Location = new System.Drawing.Point(558, 188);
-            this.writeProductsButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.writeProductsButton.Name = "writeProductsButton";
-            this.writeProductsButton.Size = new System.Drawing.Size(121, 31);
-            this.writeProductsButton.TabIndex = 6;
-            this.writeProductsButton.Text = "Write products";
-            this.writeProductsButton.UseVisualStyleBackColor = true;
-            this.writeProductsButton.Click += new System.EventHandler(this.writeProductsButton_Click);
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -164,7 +154,7 @@
             // 
             // txtBoxUniDisc
             // 
-            this.txtBoxUniDisc.Location = new System.Drawing.Point(310, 192);
+            this.txtBoxUniDisc.Location = new System.Drawing.Point(452, 192);
             this.txtBoxUniDisc.Name = "txtBoxUniDisc";
             this.txtBoxUniDisc.Size = new System.Drawing.Size(100, 22);
             this.txtBoxUniDisc.TabIndex = 12;
@@ -172,7 +162,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(176, 195);
+            this.label4.Location = new System.Drawing.Point(318, 195);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(128, 17);
             this.label4.TabIndex = 13;
@@ -180,7 +170,7 @@
             // 
             // applyUniDiscButton
             // 
-            this.applyUniDiscButton.Location = new System.Drawing.Point(416, 188);
+            this.applyUniDiscButton.Location = new System.Drawing.Point(558, 188);
             this.applyUniDiscButton.Name = "applyUniDiscButton";
             this.applyUniDiscButton.Size = new System.Drawing.Size(121, 30);
             this.applyUniDiscButton.TabIndex = 14;
@@ -188,11 +178,35 @@
             this.applyUniDiscButton.UseVisualStyleBackColor = true;
             this.applyUniDiscButton.Click += new System.EventHandler(this.applyUniDiscButton_Click);
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.Red;
+            this.label5.Location = new System.Drawing.Point(411, 19);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(269, 25);
+            this.label5.TabIndex = 15;
+            this.label5.Text = "Use decimals for percentages";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.Color.Red;
+            this.label6.Location = new System.Drawing.Point(555, 59);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(125, 25);
+            this.label6.TabIndex = 16;
+            this.label6.Text = "(0.1 for 10%)";
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(705, 386);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.applyUniDiscButton);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.txtBoxUniDisc);
@@ -201,13 +215,13 @@
             this.Controls.Add(this.changeDiscountButton);
             this.Controls.Add(this.txtBoxChangedDiscount);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.writeProductsButton);
             this.Controls.Add(this.cbBoxProducts);
             this.Controls.Add(this.addProductButton);
             this.Controls.Add(this.displayRichTxtBox);
             this.Controls.Add(this.changeTaxButton);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtBoxChangedTax);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -227,7 +241,6 @@
         private System.Windows.Forms.RichTextBox displayRichTxtBox;
         private System.Windows.Forms.Button addProductButton;
         public System.Windows.Forms.ComboBox cbBoxProducts;
-        private System.Windows.Forms.Button writeProductsButton;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtBoxChangedDiscount;
         private System.Windows.Forms.Button changeDiscountButton;
@@ -236,6 +249,8 @@
         private System.Windows.Forms.TextBox txtBoxUniDisc;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button applyUniDiscButton;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
     }
 }
 

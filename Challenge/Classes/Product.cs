@@ -16,6 +16,9 @@ namespace Challenge.Classes
 
         int upc;
 
+        //List for all additional costs this product has
+        public List<AdditionalCosts> additionalCosts = new List<AdditionalCosts>();
+
         //UPC-discount only for one product
         public static SelectiveDiscount selectiveDiscount;
 
@@ -48,13 +51,21 @@ namespace Challenge.Classes
             set { upc = value; }
         }
 
-        public double PriceAfterTaxes
+        public double PriceAfterTaxes()
         {
-            get
-            {
-               return ((double)Price + WhatIsTax() - WhatIsUniversalDiscount() - WhatIsSelectiveDiscount());
-            }
+             return ((double)Price + WhatIsTax() - WhatIsUniversalDiscount() - WhatIsSelectiveDiscount());
         }
+
+        public double PriceAfterAddCost()
+        {
+            double addCost = 0;
+            for (int i = 0; i < additionalCosts.Count; i++)
+            {
+                addCost += additionalCosts[i].Amount;
+            }
+            return addCost;
+        }
+
 
         public static double Tax { get; set; } = 0.2;
 
@@ -93,7 +104,7 @@ namespace Challenge.Classes
 
         public double WhatIsSelectiveDiscount()
         {
-
+            
             if (selectiveDiscount.UPC == Upc)
             {
                 double discountedMoney = 0;
@@ -128,6 +139,13 @@ namespace Challenge.Classes
         public double Discount { get; set; }
 
         public bool beforeTax;
+    }
+
+    public struct AdditionalCosts
+    {
+        public string NameOfAdditionalCost { get; set; }
+        public bool IsPercentage { get; set; }
+        public double Amount { get; set; }
     }
 
 }

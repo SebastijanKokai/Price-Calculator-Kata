@@ -9,3 +9,4 @@ D:\#Fakultet\Github Challenge\Challenge\Challenge\obj\Debug\Challenge.csproj.Cor
 D:\#Fakultet\Github Challenge\Challenge\Challenge\obj\Debug\Challenge.exe
 D:\#Fakultet\Github Challenge\Challenge\Challenge\obj\Debug\Challenge.pdb
 D:\#Fakultet\Github Challenge\Challenge\Challenge\obj\Debug\Challenge.csprojAssemblyReference.cache
+D:\#Fakultet\Github Challenge\Challenge\Challenge\obj\Debug\Challenge.additionalCostsForm.resources

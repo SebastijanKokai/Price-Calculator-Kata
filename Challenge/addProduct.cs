@@ -13,6 +13,7 @@ namespace Challenge
 {
     public partial class addProduct : Form
     {
+        public Product product = new Product();
         int upcOfProduct;
         public addProduct()
         {
@@ -23,7 +24,6 @@ namespace Challenge
         {
             try
             {
-                Product product = new Product();
                 product.NameOfProduct = txtBoxName.Text;
                 product.Price = Decimal.Parse(txtBoxPrice.Text);
                 product.Upc = Int32.Parse(txtBoxUPC.Text);
@@ -51,5 +51,12 @@ namespace Challenge
         {
             Close();
         }
+
+        private void AdditionalCostsButton_Click(object sender, EventArgs e)
+        {
+            additionalCostsForm form = new additionalCostsForm(this);
+            form.ShowDialog();
+        }
+
     }
 }
