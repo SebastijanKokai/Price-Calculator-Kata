@@ -10,7 +10,11 @@ namespace Challenge.Classes
     {
         decimal price;
 
+        public double discountCap = -1;
+
         public static UniversalDiscount universalDiscount;
+
+        public SelectiveDiscount selectiveDiscount;
 
         string nameOfProduct;
 
@@ -19,11 +23,6 @@ namespace Challenge.Classes
         //List for all additional costs this product has
         public List<AdditionalCosts> additionalCosts = new List<AdditionalCosts>();
 
-        //UPC-discount as a list
-        //public List<SelectiveDiscount> selectiveDiscount = new List<SelectiveDiscount>();
-
-
-        public SelectiveDiscount selectiveDiscount;
         public decimal Price
         {
             get
@@ -74,7 +73,7 @@ namespace Challenge.Classes
         public double WhatIsTax()
         {
             double discountedMoney = 0;
-            //is the UPC discount applied? is it > 0? is it beforeTax? if not, skip
+            //is it beforeTax? is the UPC discount > 0? if not, skip
             if (selectiveDiscount.Discount > 0 && selectiveDiscount.beforeTax)
             {
                 discountedMoney += ((double)Price * selectiveDiscount.Discount);
@@ -101,6 +100,12 @@ namespace Challenge.Classes
 
             double price = ((double)Price - discountedMoney) * UniversalDiscount;
 
+            // for discount cap
+            if (price > discountCap && discountCap > 0)
+            {
+                price = discountCap;
+            }
+
             return Math.Round(price,2);
         }
 
@@ -115,6 +120,12 @@ namespace Challenge.Classes
                 }
                 double price = ((double)Price - discountedMoney) * selectiveDiscount.Discount;
 
+                // for discount cap
+                if (price > discountCap && discountCap > 0)
+                {
+                    price = discountCap;
+                }
+
                 return Math.Round(price, 2);
             }
             return 0;
@@ -122,7 +133,13 @@ namespace Challenge.Classes
 
         public double ReturnAdditiveDiscount()
         {
-            return WhatIsSelectiveDiscount() + WhatIsUniversalDiscount();
+            double additiveDiscount = WhatIsSelectiveDiscount() + WhatIsUniversalDiscount();
+
+            // for discount cap
+            if (additiveDiscount > discountCap && discountCap > 0)
+                additiveDiscount = discountCap;
+
+            return additiveDiscount;
         }
 
         public double ReturnMultiplicativeDiscount()
@@ -134,6 +151,10 @@ namespace Challenge.Classes
                 double universalDiscount = WhatIsUniversalDiscount();
                 double upcDiscount = ((double)Price - universalDiscount) * selectiveDiscount.Discount;
                 multiplicativeDiscount = upcDiscount + universalDiscount;
+
+                // for discount cap
+                if (multiplicativeDiscount > discountCap && discountCap > 0)
+                    multiplicativeDiscount = discountCap;
             }
 
             return multiplicativeDiscount;

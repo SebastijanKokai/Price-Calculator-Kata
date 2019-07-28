@@ -33,7 +33,6 @@ namespace Challenge
             try
             {
                 Product.Tax = Convert.ToDouble(txtBoxChangedTax.Text);
-                txtBoxChangedTax.Clear();
             }
             catch (Exception ex)
             {
@@ -54,8 +53,7 @@ namespace Challenge
                         {
                             product.selectiveDiscount.Discount = Convert.ToDouble(txtBoxChangedDiscount.Text);
 
-                            DialogResult result = MessageBox.Show("Do you want the discount after tax? ('No' is for before tax)", "Taxing", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                            if (result == DialogResult.No)
+                            if(rdButtonBTSelective.Checked)
                                 product.selectiveDiscount.beforeTax = true;
                         }
                     }
@@ -64,37 +62,18 @@ namespace Challenge
                 {
                     MessageBox.Show(ex.Message);
                 }
-                finally
-                {
-                    txtBoxChangedDiscount.Clear();
-                }
             }
         }
 
         private void addProductButton_Click(object sender, EventArgs e)
         {
-            //I used a getter to get the Upc of the product
-            addProduct form = new addProduct();
-            DialogResult dialogResult = form.ShowDialog();
-            if(dialogResult == DialogResult.OK)
-            {
-                cbBoxProducts.Items.Add(form.UPC);
-            }
+            addProduct form = new addProduct(this);
+            form.ShowDialog();
         }
 
         private void cbBoxProducts_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-        }
-
-        private void writeProductsButton_Click(object sender, EventArgs e)
-        {
-            //writing down all products and their attributes
-            displayRichTxtBox.Clear();
-            foreach(Product product in products)
-            {
-                displayRichTxtBox.Text += product.ToString();
-            }
         }
 
         private void WriteProductButton_Click(object sender, EventArgs e)
@@ -108,47 +87,38 @@ namespace Challenge
                 {
                     if (product.Upc == (int)cbBoxProducts.SelectedItem)
                     {
+                        //this string is used so I can display only necessary attributes
                         string display = "";
 
+                        //starting variables for displaying costs
                         double addCost = 0;
                         double price = (double)product.Price;
                         double tax = product.WhatIsTax();
                         double discounts = 0;
 
-                        //this string is used so I can display only necessary attributes
                         display += $"Cost: ${price}\n";
 
                         if (tax > 0)
                             display += $"Tax: ${tax}\n";
 
+                        //discounts
                         double uniDiscount = product.WhatIsUniversalDiscount();
                         double upcDiscount = product.WhatIsSelectiveDiscount();
 
                         if (uniDiscount > 0 || upcDiscount > 0)
                         {
                             if (uniDiscount > 0 && upcDiscount > 0)
-                            {
-                                DialogResult result = MessageBox.Show("Do you want additive discount? ('No' is for multiplicative)", "Additive/Multiplicative Discount", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                                if (result == DialogResult.No)
-                                {
+                                if (radioButtonMultiplicativeDisc.Checked)
                                     discounts = product.ReturnMultiplicativeDiscount();
-                                }
                                 else
-                                {
                                     discounts = product.ReturnAdditiveDiscount();
-                                }
-                            }
                             else
-                            {
                                 discounts = product.ReturnAdditiveDiscount();
-                            }
 
                             display += $"Discounts: ${discounts}\n";
-                        }
-
-                            
+                        }    
                         
-
+                        //additional costs
                         for (int i = 0; i < product.additionalCosts.Count; i++)
                         {
                             string nameOf = product.additionalCosts[i].NameOfAdditionalCost;
@@ -162,7 +132,7 @@ namespace Challenge
 
                             display += $"{nameOf}: ${amount}\n";
 
-                            addCost += amount;
+                            addCost = Math.Round(addCost + amount,2);
                         }
 
                         double total = Math.Round(price + tax + addCost - discounts,2);
@@ -171,7 +141,7 @@ namespace Challenge
 
                         displayRichTxtBox.Text = display;
 
-                        //If discount is higher than 0, show the amount
+                        //if discount is higher than 0, show the amount
                         if (discounts > 0)
                         MessageBox.Show("Discount of product: $"  + discounts);
 
@@ -190,14 +160,48 @@ namespace Challenge
             {
                 Product.UniversalDiscount = Convert.ToDouble(txtBoxUniDisc.Text);
 
-                DialogResult result = MessageBox.Show("Do you want the discount after tax? ('No' is for before tax)", "Taxing", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (result == DialogResult.No)
+                if(rdButtonBTUniversal.Checked)
                     Product.universalDiscount.beforeTax = true;
             }
             catch(Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void ApplyDiscCapButton_Click(object sender, EventArgs e)
+        {
+            foreach (Product product in products)
+            if((int)cbBoxProducts.SelectedItem == product.Upc)
+            try
+            {
+                double discCapAmount = Convert.ToDouble(txtBoxDiscCap.Text);
+
+                //cap must be higher than 0
+                if (discCapAmount <= 0)
+                    throw new Exception("Number must be higher than 0.");
+
+                //case when percentage is checked
+                if (radioButtonPercentageCap.Checked)
+                {
+                    //percentage interval is [0,1]
+                    if (discCapAmount <= 1)
+                        discCapAmount = discCapAmount * (double)product.Price;
+                    else
+                        throw new Exception("Percentages must be between 0 and 1.");
+                }
+
+                product.discountCap = discCapAmount;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

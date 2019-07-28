@@ -163,7 +163,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "additionalCostsForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "additionalCostsForm";
+            this.Text = "Add additional costs";
             this.groupBoxAmount.ResumeLayout(false);
             this.groupBoxAmount.PerformLayout();
             this.groupBoxAdditionalCost.ResumeLayout(false);

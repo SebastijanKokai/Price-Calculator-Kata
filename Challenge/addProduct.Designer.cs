@@ -129,7 +129,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.closeButton;
-            this.ClientSize = new System.Drawing.Size(290, 251);
+            this.ClientSize = new System.Drawing.Size(290, 291);
             this.ControlBox = false;
             this.Controls.Add(this.additionalCostsButton);
             this.Controls.Add(this.closeButton);
@@ -140,10 +140,12 @@
             this.Controls.Add(this.txtBoxUPC);
             this.Controls.Add(this.txtBoxPrice);
             this.Controls.Add(this.txtBoxName);
+            this.Cursor = System.Windows.Forms.Cursors.Default;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "addProduct";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "addProduct";
+            this.Text = "Add a product";
             this.Load += new System.EventHandler(this.addProduct_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

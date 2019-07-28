@@ -14,9 +14,11 @@ namespace Challenge
     public partial class addProduct : Form
     {
         public Product product = new Product();
-        int upcOfProduct;
-        public addProduct()
+
+        private mainForm main = null;
+        public addProduct(Form callingForm)
         {
+            main = callingForm as mainForm;
             InitializeComponent();
         }
 
@@ -36,8 +38,8 @@ namespace Challenge
                 product.Price = Decimal.Parse(txtBoxPrice.Text);
 
                 mainForm.products.Add(product);
-                upcOfProduct = product.Upc;
-                Close();
+                main.cbBoxProducts.Items.Add(product.Upc);
+               //Close();
             }
             catch(Exception ex)
             {
@@ -48,10 +50,6 @@ namespace Challenge
         private void addProduct_Load(object sender, EventArgs e)
         {
 
-        }
-        public int UPC
-        {
-            get { return upcOfProduct; }
         }
 
         private void closeButton_Click(object sender, EventArgs e)
