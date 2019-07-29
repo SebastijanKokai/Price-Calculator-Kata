@@ -8,7 +8,11 @@ namespace Challenge.Classes
 {
     public class Product
     {
+        //fields
         decimal price;
+        //I use static for tax and universalDiscount because
+        //it applies to all products equally
+        static decimal tax = 0.2M;
 
         string currency = "EUR";
 
@@ -16,179 +20,187 @@ namespace Challenge.Classes
 
         int upc;
 
-        public double discountCap = -1;
-
-        public static UniversalDiscount universalDiscount;
-
-        public SelectiveDiscount selectiveDiscount;
+        decimal discountCap = -1;
 
         //List for all additional costs this product has
-        public List<AdditionalCosts> additionalCosts = new List<AdditionalCosts>();
+        List<AdditionalCosts> additionalCosts = new List<AdditionalCosts>();
 
-        public decimal Price
+        //discounts
+        static UniversalDiscount universalDiscount = new UniversalDiscount();
+
+        SelectiveDiscount selectiveDiscount = new SelectiveDiscount();
+
+        //properties
+        public decimal Price { get => price; set => price = value; }
+        public static decimal Tax { get => tax; set => tax = value; }
+        public string Currency { get => currency; set => currency = value; }
+        public string NameOfProduct { get => nameOfProduct; set => nameOfProduct = value; }
+        public int Upc { get => upc; set => upc = value; }
+        public decimal DiscountCap { get => discountCap; set => discountCap = value; }
+        public List<AdditionalCosts> AdditionalCosts { get => additionalCosts; set => additionalCosts = value; }
+        public static UniversalDiscount UniversalDiscount { get => universalDiscount; set => universalDiscount = value; }
+        public SelectiveDiscount SelectiveDiscount { get => selectiveDiscount; set => selectiveDiscount = value; }
+
+        //methods
+        public decimal PriceAfterTaxes()
         {
-            get
+             return (Price + WhatIsTax() - WhatIsUniversalDiscount() - WhatIsSelectiveDiscount());
+        }
+
+        public decimal PriceAfterAdditionalCost()
+        {
+            decimal addCost = 0;
+            for (int i = 0; i < AdditionalCosts.Count; i++)
             {
-                return Decimal.Round(this.price, 2);
-            }
-            set
-            {
-                this.price = value;
-            }
-        }
-        public static double UniversalDiscount
-        {
-            get { return universalDiscount.Discount; }
-            set { universalDiscount.Discount = value; }
-        }
-
-        public string NameOfProduct
-        {
-            get { return nameOfProduct; }
-            set { nameOfProduct = value; }
-        }
-
-        public int Upc
-        {
-            get { return upc; }
-            set { upc = value; }
-        }
-
-        public string Currency
-        {
-            get { return currency; }
-            set { currency = value; }
-        }
-
-        public double PriceAfterTaxes()
-        {
-             return ((double)Price + WhatIsTax() - WhatIsUniversalDiscount() - WhatIsSelectiveDiscount());
-        }
-
-        public double PriceAfterAddCost()
-        {
-            double addCost = 0;
-            for (int i = 0; i < additionalCosts.Count; i++)
-            {
-                addCost += additionalCosts[i].Amount;
+                addCost += AdditionalCosts[i].Amount;
             }
             return addCost;
         }
 
-
-        public static double Tax { get; set; } = 0.2;
-
-        public double WhatIsTax()
+        //returns how much money is tax for the product (not the percentage)
+        public decimal WhatIsTax()
         {
-            double discountedMoney = 0;
+            decimal discountedMoney = 0;
             //is it beforeTax? is the UPC discount > 0? if not, skip
-            if (selectiveDiscount.Discount > 0 && selectiveDiscount.beforeTax)
+            if (SelectiveDiscount.Discount > 0 && SelectiveDiscount.BeforeTax)
             {
-                discountedMoney += ((double)Price * selectiveDiscount.Discount);
+                discountedMoney += (Price * SelectiveDiscount.Discount);
             }
             //is the universalDiscount beforeTax? is it > 0? if not, skip
-            if(universalDiscount.beforeTax && universalDiscount.Discount > 0)
+            if(UniversalDiscount.BeforeTax && UniversalDiscount.Discount > 0)
             {
-                discountedMoney += ((double)Price * universalDiscount.Discount);
+                discountedMoney += (Price * UniversalDiscount.Discount);
             }
 
             //if both are afterTax, then discountedMoney = 0, so nothing changes
-            double price = ((double)Price - discountedMoney) * Tax;
+            decimal price = (Price - discountedMoney) * Tax;
             
-            return Math.Round(price, 2);
+            return Math.Round(price, 4);
         }
 
-        public double WhatIsUniversalDiscount()
+        public decimal WhatIsUniversalDiscount()
         {
-            double discountedMoney = 0;
-            if (selectiveDiscount.Discount > 0 && selectiveDiscount.beforeTax && !universalDiscount.beforeTax)
+            decimal discountedMoney = 0;
+            if (SelectiveDiscount.Discount > 0 && SelectiveDiscount.BeforeTax && !UniversalDiscount.BeforeTax)
             {
-                discountedMoney += ((double)Price * selectiveDiscount.Discount);
+                discountedMoney += (Price * SelectiveDiscount.Discount);
             }
 
-            double price = ((double)Price - discountedMoney) * UniversalDiscount;
+            decimal price = (Price - discountedMoney) * UniversalDiscount.Discount;
 
             // for discount cap
-            if (price > discountCap && discountCap > 0)
+            if (price > DiscountCap && DiscountCap > 0)
             {
-                price = discountCap;
+                price = DiscountCap;
             }
 
-            return Math.Round(price,2);
+            return Math.Round(price,4);
         }
 
-        public double WhatIsSelectiveDiscount()
+        public decimal WhatIsSelectiveDiscount()
         {
-            if (selectiveDiscount.Discount > 0)
+            if (SelectiveDiscount.Discount > 0)
             {
-                double discountedMoney = 0;
-                if (universalDiscount.beforeTax && universalDiscount.Discount > 0 && !selectiveDiscount.beforeTax)
+                decimal discountedMoney = 0;
+                if (UniversalDiscount.BeforeTax && UniversalDiscount.Discount > 0 && !SelectiveDiscount.BeforeTax)
                 {
-                    discountedMoney += ((double)Price * universalDiscount.Discount);
+                    discountedMoney += (Price * UniversalDiscount.Discount);
                 }
-                double price = ((double)Price - discountedMoney) * selectiveDiscount.Discount;
+                decimal price = (Price - discountedMoney) * SelectiveDiscount.Discount;
 
                 // for discount cap
-                if (price > discountCap && discountCap > 0)
+                if (price > DiscountCap && DiscountCap > 0)
                 {
-                    price = discountCap;
+                    price = DiscountCap;
                 }
 
-                return Math.Round(price, 2);
+                return Math.Round(price, 4);
             }
             return 0;
         }
 
-        public double ReturnAdditiveDiscount()
+        public decimal ReturnAdditiveDiscount()
         {
-            double additiveDiscount = WhatIsSelectiveDiscount() + WhatIsUniversalDiscount();
+            decimal additiveDiscount = WhatIsSelectiveDiscount() + WhatIsUniversalDiscount();
 
             // for discount cap
-            if (additiveDiscount > discountCap && discountCap > 0)
-                additiveDiscount = discountCap;
+            if (additiveDiscount > DiscountCap && DiscountCap > 0)
+                additiveDiscount = DiscountCap;
 
             return additiveDiscount;
         }
 
-        public double ReturnMultiplicativeDiscount()
+        public decimal ReturnMultiplicativeDiscount()
         {
-            double multiplicativeDiscount = 0;
+            decimal multiplicativeDiscount = 0;
 
-            if (universalDiscount.Discount > 0 & selectiveDiscount.Discount > 0)
+            if (UniversalDiscount.Discount > 0 & SelectiveDiscount.Discount > 0)
             {
-                double universalDiscount = WhatIsUniversalDiscount();
-                double upcDiscount = ((double)Price - universalDiscount) * selectiveDiscount.Discount;
+                decimal universalDiscount = WhatIsUniversalDiscount();
+                decimal upcDiscount = (Price - universalDiscount) * SelectiveDiscount.Discount;
                 multiplicativeDiscount = upcDiscount + universalDiscount;
 
                 // for discount cap
-                if (multiplicativeDiscount > discountCap && discountCap > 0)
-                    multiplicativeDiscount = discountCap;
+                if (multiplicativeDiscount > DiscountCap && DiscountCap > 0)
+                    multiplicativeDiscount = DiscountCap;
             }
 
             return multiplicativeDiscount;
         }
+
+        public string ReturnAdditionalCostsString()
+        {
+            string display = "";
+
+            for (int i = 0; i < AdditionalCosts.Count; i++)
+            {
+                string nameOf = AdditionalCosts[i].NameOfAdditionalCost;
+                bool isPercentage = AdditionalCosts[i].IsPercentage;
+                decimal amount = AdditionalCosts[i].Amount;
+                string curr = Currency;
+
+                string sign = isPercentage ? "%" : "";
+
+                if (sign == "%")
+                    amount = Price * amount;
+
+                amount = Math.Round(amount, 2);
+
+                display += $"{nameOf}: {amount} {curr}\n";
+            }
+
+            return display;
+        }
     }
 
-    //using struct so I don't get 'object reference not set to an instance of an object' error
-    public struct SelectiveDiscount
+    public class SelectiveDiscount
     {
-        public double Discount { get; set; }
+        decimal discount;
 
-        public bool beforeTax;
+        bool beforeTax;
+        public decimal Discount { get => discount; set => discount = value; }
+        public bool BeforeTax { get => beforeTax; set => beforeTax = value; }
     }
 
-    public struct UniversalDiscount
+    public class UniversalDiscount
     {
-        public double Discount { get; set; }
+        decimal discount;
 
-        public bool beforeTax;
+        bool beforeTax;
+        public decimal Discount { get => discount; set => discount = value; }
+        public bool BeforeTax { get => beforeTax; set => beforeTax = value; }
     }
 
-    public struct AdditionalCosts
+    public class AdditionalCosts
     {
-        public string NameOfAdditionalCost { get; set; }
-        public bool IsPercentage { get; set; }
-        public double Amount { get; set; }
+        string nameOfAdditionalCost;
+
+        bool isPercentage;
+
+        decimal amount;
+        public string NameOfAdditionalCost { get => nameOfAdditionalCost; set => nameOfAdditionalCost = value; }
+        public bool IsPercentage { get => isPercentage; set => isPercentage = value; }
+        public decimal Amount { get => amount; set => amount = value; }
     }
 
 }

@@ -32,7 +32,7 @@ namespace Challenge
             //changing the tax for products
             try
             {
-                double tax = Convert.ToDouble(txtBoxChangedTax.Text);
+                decimal tax = Convert.ToDecimal(txtBoxChangedTax.Text);
                 if (tax > 1 || tax <= 0)
                     throw new Exception("Percentage must be between 0 and 1.");
 
@@ -55,17 +55,17 @@ namespace Challenge
                     {
                         if((int)cbBoxProducts.SelectedItem == product.Upc)
                         {
-                            double selDiscount = Convert.ToDouble(txtBoxChangedDiscount.Text);
+                            decimal selDiscount = Convert.ToDecimal(txtBoxChangedDiscount.Text);
 
                             if (selDiscount > 1 || selDiscount <= 0)
                                 throw new Exception("Percentage must be between 0 and 1.");
 
-                            product.selectiveDiscount.Discount = selDiscount;
+                            product.SelectiveDiscount.Discount = selDiscount;
 
                             if (rdButtonBTSelective.Checked)
-                                product.selectiveDiscount.beforeTax = true;
+                                product.SelectiveDiscount.BeforeTax = true;
                             else
-                                product.selectiveDiscount.beforeTax = false;
+                                product.SelectiveDiscount.BeforeTax = false;
                         }
                     }
                 }
@@ -84,7 +84,14 @@ namespace Challenge
 
         private void cbBoxProducts_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            foreach (Product product in products)
+                if(product.Upc == (int)cbBoxProducts.SelectedItem)
+                {
+                    txtBoxChangedTax.Text = Product.Tax.ToString();
+                    txtBoxChangedDiscount.Text = product.SelectiveDiscount.Discount.ToString();
+                    txtBoxUniDisc.Text = Product.UniversalDiscount.Discount.ToString();
+                    txtBoxDiscCap.Text = product.DiscountCap.ToString();
+                }
         }
 
         private void WriteProductButton_Click(object sender, EventArgs e)
@@ -102,10 +109,10 @@ namespace Challenge
                         string display = "";
 
                         //starting variables for displaying costs
-                        double addCost = 0;
-                        double price = (double)product.Price;
-                        double tax = product.WhatIsTax();
-                        double discounts = 0;
+                        decimal addCost = 0;
+                        decimal price = Math.Round(product.Price, 2);
+                        decimal tax = Math.Round(product.WhatIsTax(), 2);
+                        decimal discounts = 0;
                         string curr = product.Currency;
 
                         display += $"Cost: {price} {curr}\n";
@@ -114,8 +121,8 @@ namespace Challenge
                             display += $"Tax: {tax} {curr}\n";
 
                         //discounts
-                        double uniDiscount = product.WhatIsUniversalDiscount();
-                        double upcDiscount = product.WhatIsSelectiveDiscount();
+                        decimal uniDiscount = product.WhatIsUniversalDiscount();
+                        decimal upcDiscount = product.WhatIsSelectiveDiscount();
 
                         if (uniDiscount > 0 || upcDiscount > 0)
                         {
@@ -127,27 +134,17 @@ namespace Challenge
                             else
                                 discounts = product.ReturnAdditiveDiscount();
 
+                            discounts = Math.Round(discounts, 2);
+
                             display += $"Discounts: {discounts} {curr}\n";
-                        }    
-                        
-                        //additional costs
-                        for (int i = 0; i < product.additionalCosts.Count; i++)
-                        {
-                            string nameOf = product.additionalCosts[i].NameOfAdditionalCost;
-                            bool isPercentage = product.additionalCosts[i].IsPercentage;
-                            double amount = product.additionalCosts[i].Amount;
-
-                            string sign = isPercentage ? "%" : "$";
-
-                            if (sign == "%")
-                                amount = Math.Round(price*amount, 2);
-
-                            display += $"{nameOf}: {amount} {curr}\n";
-
-                            addCost = Math.Round(addCost + amount,2);
                         }
 
-                        double total = Math.Round(price + tax + addCost - discounts,2);
+                        //additional costs
+                        display += product.ReturnAdditionalCostsString();
+                        addCost += product.PriceAfterAdditionalCost();
+
+                        //total costs of product
+                        decimal total = Math.Round(price + tax + addCost - discounts, 2);
 
                         display += $"Total: {total} {curr}";
 
@@ -170,17 +167,17 @@ namespace Challenge
             //applying universal discount for all products
             try
             {
-                double uniDiscount = Convert.ToDouble(txtBoxUniDisc.Text);
+                decimal uniDiscount = Convert.ToDecimal(txtBoxUniDisc.Text);
 
                 if(uniDiscount > 1 || uniDiscount <= 0)
                     throw new Exception("Percentage must be between 0 and 1.");
 
-                Product.UniversalDiscount = Convert.ToDouble(txtBoxUniDisc.Text);
+                Product.UniversalDiscount.Discount = uniDiscount;
 
                 if (rdButtonBTUniversal.Checked)
-                    Product.universalDiscount.beforeTax = true;
+                    Product.UniversalDiscount.BeforeTax = true;
                 else
-                    Product.universalDiscount.beforeTax = false;
+                    Product.UniversalDiscount.BeforeTax = false;
             }
             catch(Exception ex)
             {
@@ -194,7 +191,7 @@ namespace Challenge
             if((int)cbBoxProducts.SelectedItem == product.Upc)
             try
             {
-                double discCapAmount = Convert.ToDouble(txtBoxDiscCap.Text);
+                decimal discCapAmount = Convert.ToDecimal(txtBoxDiscCap.Text);
 
                 //cap must be higher than 0
                 if (discCapAmount <= 0)
@@ -205,12 +202,12 @@ namespace Challenge
                 {
                     //percentage interval is [0,1]
                     if (discCapAmount <= 1)
-                        discCapAmount = discCapAmount * (double)product.Price;
+                        discCapAmount = discCapAmount * product.Price;
                     else
                         throw new Exception("Percentages must be between 0 and 1.");
                 }
 
-                product.discountCap = discCapAmount;
+                product.DiscountCap = discCapAmount;
             }
             catch (Exception ex)
             {
@@ -220,6 +217,7 @@ namespace Challenge
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+
         }
     }
 }

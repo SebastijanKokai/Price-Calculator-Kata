@@ -117,6 +117,7 @@
             // 
             // cbBoxProducts
             // 
+            this.cbBoxProducts.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbBoxProducts.FormattingEnabled = true;
             this.cbBoxProducts.Location = new System.Drawing.Point(148, 16);
             this.cbBoxProducts.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);

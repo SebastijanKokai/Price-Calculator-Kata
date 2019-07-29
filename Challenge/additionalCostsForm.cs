@@ -28,7 +28,7 @@ namespace Challenge
                 //creating variables for list item
                 string nameOf;
                 bool isPercentage = radioButtonPerc.Checked;
-                double amount = Convert.ToDouble(txtBoxAmount.Text);
+                decimal amount = Convert.ToDecimal(txtBoxAmount.Text);
 
                 if (isPercentage && (amount <= 0 || amount > 1))
                     throw new Exception("Percentage must be between 0 and 1.");
@@ -47,7 +47,7 @@ namespace Challenge
                 addCost.Amount = amount;
 
                 //adding product additional costs
-                addProductForm.product.additionalCosts.Add(addCost);
+                addProductForm.product.AdditionalCosts.Add(addCost);
 
                 MessageBox.Show("Success.");
                 txtBoxAmount.Clear();
