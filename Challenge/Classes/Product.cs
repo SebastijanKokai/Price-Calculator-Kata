@@ -10,15 +10,17 @@ namespace Challenge.Classes
     {
         decimal price;
 
+        string currency = "EUR";
+
+        string nameOfProduct;
+
+        int upc;
+
         public double discountCap = -1;
 
         public static UniversalDiscount universalDiscount;
 
         public SelectiveDiscount selectiveDiscount;
-
-        string nameOfProduct;
-
-        int upc;
 
         //List for all additional costs this product has
         public List<AdditionalCosts> additionalCosts = new List<AdditionalCosts>();
@@ -50,6 +52,12 @@ namespace Challenge.Classes
         {
             get { return upc; }
             set { upc = value; }
+        }
+
+        public string Currency
+        {
+            get { return currency; }
+            set { currency = value; }
         }
 
         public double PriceAfterTaxes()

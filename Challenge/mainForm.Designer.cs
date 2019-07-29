@@ -54,11 +54,11 @@
             this.groupBoxDiscountType = new System.Windows.Forms.GroupBox();
             this.radioButtonMultiplicativeDisc = new System.Windows.Forms.RadioButton();
             this.groupBoxSelDisc = new System.Windows.Forms.GroupBox();
-            this.groupBoxUniDisc = new System.Windows.Forms.GroupBox();
-            this.rdButtonATSelective = new System.Windows.Forms.RadioButton();
             this.rdButtonBTSelective = new System.Windows.Forms.RadioButton();
-            this.rdButtonATUniversal = new System.Windows.Forms.RadioButton();
+            this.rdButtonATSelective = new System.Windows.Forms.RadioButton();
+            this.groupBoxUniDisc = new System.Windows.Forms.GroupBox();
             this.rdButtonBTUniversal = new System.Windows.Forms.RadioButton();
+            this.rdButtonATUniversal = new System.Windows.Forms.RadioButton();
             this.groupBoxDiscountCap.SuspendLayout();
             this.groupBoxDiscountType.SuspendLayout();
             this.groupBoxSelDisc.SuspendLayout();
@@ -67,7 +67,7 @@
             // 
             // txtBoxChangedTax
             // 
-            this.txtBoxChangedTax.Location = new System.Drawing.Point(157, 62);
+            this.txtBoxChangedTax.Location = new System.Drawing.Point(148, 58);
             this.txtBoxChangedTax.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtBoxChangedTax.Name = "txtBoxChangedTax";
             this.txtBoxChangedTax.Size = new System.Drawing.Size(100, 22);
@@ -77,7 +77,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(21, 67);
+            this.label1.Location = new System.Drawing.Point(12, 63);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(35, 17);
             this.label1.TabIndex = 1;
@@ -85,7 +85,7 @@
             // 
             // changeTaxButton
             // 
-            this.changeTaxButton.Location = new System.Drawing.Point(263, 55);
+            this.changeTaxButton.Location = new System.Drawing.Point(254, 51);
             this.changeTaxButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.changeTaxButton.Name = "changeTaxButton";
             this.changeTaxButton.Size = new System.Drawing.Size(131, 36);
@@ -96,7 +96,7 @@
             // 
             // displayRichTxtBox
             // 
-            this.displayRichTxtBox.Location = new System.Drawing.Point(24, 365);
+            this.displayRichTxtBox.Location = new System.Drawing.Point(15, 361);
             this.displayRichTxtBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.displayRichTxtBox.Name = "displayRichTxtBox";
             this.displayRichTxtBox.ReadOnly = true;
@@ -106,7 +106,7 @@
             // 
             // addProductButton
             // 
-            this.addProductButton.Location = new System.Drawing.Point(263, 13);
+            this.addProductButton.Location = new System.Drawing.Point(254, 9);
             this.addProductButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.addProductButton.Name = "addProductButton";
             this.addProductButton.Size = new System.Drawing.Size(131, 36);
@@ -118,7 +118,7 @@
             // cbBoxProducts
             // 
             this.cbBoxProducts.FormattingEnabled = true;
-            this.cbBoxProducts.Location = new System.Drawing.Point(157, 20);
+            this.cbBoxProducts.Location = new System.Drawing.Point(148, 16);
             this.cbBoxProducts.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cbBoxProducts.Name = "cbBoxProducts";
             this.cbBoxProducts.Size = new System.Drawing.Size(100, 24);
@@ -128,7 +128,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(21, 109);
+            this.label2.Location = new System.Drawing.Point(12, 105);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(126, 17);
             this.label2.TabIndex = 7;
@@ -136,14 +136,14 @@
             // 
             // txtBoxChangedDiscount
             // 
-            this.txtBoxChangedDiscount.Location = new System.Drawing.Point(157, 104);
+            this.txtBoxChangedDiscount.Location = new System.Drawing.Point(148, 100);
             this.txtBoxChangedDiscount.Name = "txtBoxChangedDiscount";
             this.txtBoxChangedDiscount.Size = new System.Drawing.Size(100, 22);
             this.txtBoxChangedDiscount.TabIndex = 8;
             // 
             // changeDiscountButton
             // 
-            this.changeDiscountButton.Location = new System.Drawing.Point(263, 97);
+            this.changeDiscountButton.Location = new System.Drawing.Point(254, 93);
             this.changeDiscountButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.changeDiscountButton.Name = "changeDiscountButton";
             this.changeDiscountButton.Size = new System.Drawing.Size(131, 36);
@@ -155,7 +155,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(21, 27);
+            this.label3.Location = new System.Drawing.Point(12, 23);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(61, 17);
             this.label3.TabIndex = 10;
@@ -163,7 +163,7 @@
             // 
             // writeProductButton
             // 
-            this.writeProductButton.Location = new System.Drawing.Point(24, 330);
+            this.writeProductButton.Location = new System.Drawing.Point(15, 326);
             this.writeProductButton.Name = "writeProductButton";
             this.writeProductButton.Size = new System.Drawing.Size(190, 30);
             this.writeProductButton.TabIndex = 11;
@@ -173,7 +173,7 @@
             // 
             // txtBoxUniDisc
             // 
-            this.txtBoxUniDisc.Location = new System.Drawing.Point(157, 147);
+            this.txtBoxUniDisc.Location = new System.Drawing.Point(148, 143);
             this.txtBoxUniDisc.Name = "txtBoxUniDisc";
             this.txtBoxUniDisc.Size = new System.Drawing.Size(100, 22);
             this.txtBoxUniDisc.TabIndex = 12;
@@ -181,7 +181,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(21, 150);
+            this.label4.Location = new System.Drawing.Point(12, 146);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(128, 17);
             this.label4.TabIndex = 13;
@@ -189,7 +189,7 @@
             // 
             // applyUniDiscButton
             // 
-            this.applyUniDiscButton.Location = new System.Drawing.Point(263, 138);
+            this.applyUniDiscButton.Location = new System.Drawing.Point(254, 134);
             this.applyUniDiscButton.Name = "applyUniDiscButton";
             this.applyUniDiscButton.Size = new System.Drawing.Size(131, 36);
             this.applyUniDiscButton.TabIndex = 14;
@@ -202,7 +202,7 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.Red;
-            this.label5.Location = new System.Drawing.Point(411, 19);
+            this.label5.Location = new System.Drawing.Point(402, 15);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(269, 25);
             this.label5.TabIndex = 15;
@@ -213,7 +213,7 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.Red;
-            this.label6.Location = new System.Drawing.Point(555, 59);
+            this.label6.Location = new System.Drawing.Point(546, 55);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(125, 25);
             this.label6.TabIndex = 16;
@@ -222,7 +222,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(21, 189);
+            this.label7.Location = new System.Drawing.Point(12, 185);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(94, 17);
             this.label7.TabIndex = 17;
@@ -230,14 +230,14 @@
             // 
             // txtBoxDiscCap
             // 
-            this.txtBoxDiscCap.Location = new System.Drawing.Point(157, 186);
+            this.txtBoxDiscCap.Location = new System.Drawing.Point(148, 182);
             this.txtBoxDiscCap.Name = "txtBoxDiscCap";
             this.txtBoxDiscCap.Size = new System.Drawing.Size(100, 22);
             this.txtBoxDiscCap.TabIndex = 18;
             // 
             // applyDiscCapButton
             // 
-            this.applyDiscCapButton.Location = new System.Drawing.Point(263, 179);
+            this.applyDiscCapButton.Location = new System.Drawing.Point(254, 175);
             this.applyDiscCapButton.Name = "applyDiscCapButton";
             this.applyDiscCapButton.Size = new System.Drawing.Size(131, 36);
             this.applyDiscCapButton.TabIndex = 19;
@@ -283,7 +283,7 @@
             // 
             this.groupBoxDiscountCap.Controls.Add(this.radioButtonPercentageCap);
             this.groupBoxDiscountCap.Controls.Add(this.radioButtonAmountCap);
-            this.groupBoxDiscountCap.Location = new System.Drawing.Point(24, 218);
+            this.groupBoxDiscountCap.Location = new System.Drawing.Point(15, 214);
             this.groupBoxDiscountCap.Name = "groupBoxDiscountCap";
             this.groupBoxDiscountCap.Size = new System.Drawing.Size(113, 81);
             this.groupBoxDiscountCap.TabIndex = 23;
@@ -294,7 +294,7 @@
             // 
             this.groupBoxDiscountType.Controls.Add(this.radioButtonMultiplicativeDisc);
             this.groupBoxDiscountType.Controls.Add(this.radioButtonAdditiveDisc);
-            this.groupBoxDiscountType.Location = new System.Drawing.Point(258, 307);
+            this.groupBoxDiscountType.Location = new System.Drawing.Point(249, 303);
             this.groupBoxDiscountType.Name = "groupBoxDiscountType";
             this.groupBoxDiscountType.Size = new System.Drawing.Size(210, 53);
             this.groupBoxDiscountType.TabIndex = 24;
@@ -316,23 +316,22 @@
             this.groupBoxSelDisc.BackColor = System.Drawing.Color.Transparent;
             this.groupBoxSelDisc.Controls.Add(this.rdButtonBTSelective);
             this.groupBoxSelDisc.Controls.Add(this.rdButtonATSelective);
-            this.groupBoxSelDisc.Location = new System.Drawing.Point(416, 97);
+            this.groupBoxSelDisc.Location = new System.Drawing.Point(407, 93);
             this.groupBoxSelDisc.Name = "groupBoxSelDisc";
             this.groupBoxSelDisc.Size = new System.Drawing.Size(211, 36);
             this.groupBoxSelDisc.TabIndex = 25;
             this.groupBoxSelDisc.TabStop = false;
             this.groupBoxSelDisc.Text = "When to discount";
             // 
-            // groupBoxUniDisc
+            // rdButtonBTSelective
             // 
-            this.groupBoxUniDisc.Controls.Add(this.rdButtonBTUniversal);
-            this.groupBoxUniDisc.Controls.Add(this.rdButtonATUniversal);
-            this.groupBoxUniDisc.Location = new System.Drawing.Point(416, 138);
-            this.groupBoxUniDisc.Name = "groupBoxUniDisc";
-            this.groupBoxUniDisc.Size = new System.Drawing.Size(211, 36);
-            this.groupBoxUniDisc.TabIndex = 26;
-            this.groupBoxUniDisc.TabStop = false;
-            this.groupBoxUniDisc.Text = "When to discount";
+            this.rdButtonBTSelective.AutoSize = true;
+            this.rdButtonBTSelective.Location = new System.Drawing.Point(93, 15);
+            this.rdButtonBTSelective.Name = "rdButtonBTSelective";
+            this.rdButtonBTSelective.Size = new System.Drawing.Size(93, 21);
+            this.rdButtonBTSelective.TabIndex = 28;
+            this.rdButtonBTSelective.Text = "Before tax";
+            this.rdButtonBTSelective.UseVisualStyleBackColor = true;
             // 
             // rdButtonATSelective
             // 
@@ -346,15 +345,26 @@
             this.rdButtonATSelective.Text = "After tax";
             this.rdButtonATSelective.UseVisualStyleBackColor = true;
             // 
-            // rdButtonBTSelective
+            // groupBoxUniDisc
             // 
-            this.rdButtonBTSelective.AutoSize = true;
-            this.rdButtonBTSelective.Location = new System.Drawing.Point(93, 15);
-            this.rdButtonBTSelective.Name = "rdButtonBTSelective";
-            this.rdButtonBTSelective.Size = new System.Drawing.Size(93, 21);
-            this.rdButtonBTSelective.TabIndex = 28;
-            this.rdButtonBTSelective.Text = "Before tax";
-            this.rdButtonBTSelective.UseVisualStyleBackColor = true;
+            this.groupBoxUniDisc.Controls.Add(this.rdButtonBTUniversal);
+            this.groupBoxUniDisc.Controls.Add(this.rdButtonATUniversal);
+            this.groupBoxUniDisc.Location = new System.Drawing.Point(407, 134);
+            this.groupBoxUniDisc.Name = "groupBoxUniDisc";
+            this.groupBoxUniDisc.Size = new System.Drawing.Size(211, 36);
+            this.groupBoxUniDisc.TabIndex = 26;
+            this.groupBoxUniDisc.TabStop = false;
+            this.groupBoxUniDisc.Text = "When to discount";
+            // 
+            // rdButtonBTUniversal
+            // 
+            this.rdButtonBTUniversal.AutoSize = true;
+            this.rdButtonBTUniversal.Location = new System.Drawing.Point(93, 15);
+            this.rdButtonBTUniversal.Name = "rdButtonBTUniversal";
+            this.rdButtonBTUniversal.Size = new System.Drawing.Size(93, 21);
+            this.rdButtonBTUniversal.TabIndex = 29;
+            this.rdButtonBTUniversal.Text = "Before tax";
+            this.rdButtonBTUniversal.UseVisualStyleBackColor = true;
             // 
             // rdButtonATUniversal
             // 
@@ -368,21 +378,11 @@
             this.rdButtonATUniversal.Text = "After tax";
             this.rdButtonATUniversal.UseVisualStyleBackColor = true;
             // 
-            // rdButtonBTUniversal
-            // 
-            this.rdButtonBTUniversal.AutoSize = true;
-            this.rdButtonBTUniversal.Location = new System.Drawing.Point(93, 15);
-            this.rdButtonBTUniversal.Name = "rdButtonBTUniversal";
-            this.rdButtonBTUniversal.Size = new System.Drawing.Size(93, 21);
-            this.rdButtonBTUniversal.TabIndex = 29;
-            this.rdButtonBTUniversal.Text = "Before tax";
-            this.rdButtonBTUniversal.UseVisualStyleBackColor = true;
-            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(705, 523);
+            this.ClientSize = new System.Drawing.Size(705, 530);
             this.Controls.Add(this.groupBoxUniDisc);
             this.Controls.Add(this.groupBoxSelDisc);
             this.Controls.Add(this.groupBoxDiscountType);

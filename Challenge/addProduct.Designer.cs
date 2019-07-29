@@ -37,6 +37,8 @@
             this.addButton = new System.Windows.Forms.Button();
             this.closeButton = new System.Windows.Forms.Button();
             this.additionalCostsButton = new System.Windows.Forms.Button();
+            this.cbBoxCurrency = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // txtBoxName
@@ -49,7 +51,7 @@
             // 
             // txtBoxPrice
             // 
-            this.txtBoxPrice.Location = new System.Drawing.Point(164, 83);
+            this.txtBoxPrice.Location = new System.Drawing.Point(164, 142);
             this.txtBoxPrice.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtBoxPrice.Name = "txtBoxPrice";
             this.txtBoxPrice.Size = new System.Drawing.Size(100, 22);
@@ -57,7 +59,7 @@
             // 
             // txtBoxUPC
             // 
-            this.txtBoxUPC.Location = new System.Drawing.Point(164, 123);
+            this.txtBoxUPC.Location = new System.Drawing.Point(164, 74);
             this.txtBoxUPC.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtBoxUPC.Name = "txtBoxUPC";
             this.txtBoxUPC.Size = new System.Drawing.Size(100, 22);
@@ -75,7 +77,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(27, 86);
+            this.label2.Location = new System.Drawing.Point(27, 147);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(40, 17);
             this.label2.TabIndex = 5;
@@ -84,7 +86,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(27, 126);
+            this.label3.Location = new System.Drawing.Point(27, 79);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(36, 17);
             this.label3.TabIndex = 6;
@@ -93,7 +95,7 @@
             // addButton
             // 
             this.addButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.addButton.Location = new System.Drawing.Point(30, 201);
+            this.addButton.Location = new System.Drawing.Point(30, 224);
             this.addButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.addButton.Name = "addButton";
             this.addButton.Size = new System.Drawing.Size(75, 31);
@@ -105,7 +107,7 @@
             // closeButton
             // 
             this.closeButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.closeButton.Location = new System.Drawing.Point(189, 201);
+            this.closeButton.Location = new System.Drawing.Point(189, 224);
             this.closeButton.Name = "closeButton";
             this.closeButton.Size = new System.Drawing.Size(75, 31);
             this.closeButton.TabIndex = 8;
@@ -115,13 +117,34 @@
             // 
             // additionalCostsButton
             // 
-            this.additionalCostsButton.Location = new System.Drawing.Point(30, 161);
+            this.additionalCostsButton.Location = new System.Drawing.Point(30, 184);
             this.additionalCostsButton.Name = "additionalCostsButton";
             this.additionalCostsButton.Size = new System.Drawing.Size(234, 23);
             this.additionalCostsButton.TabIndex = 9;
             this.additionalCostsButton.Text = "Additional costs";
             this.additionalCostsButton.UseVisualStyleBackColor = true;
             this.additionalCostsButton.Click += new System.EventHandler(this.AdditionalCostsButton_Click);
+            // 
+            // cbBoxCurrency
+            // 
+            this.cbBoxCurrency.FormattingEnabled = true;
+            this.cbBoxCurrency.Items.AddRange(new object[] {
+            "EUR",
+            "USD",
+            "RSD"});
+            this.cbBoxCurrency.Location = new System.Drawing.Point(164, 106);
+            this.cbBoxCurrency.Name = "cbBoxCurrency";
+            this.cbBoxCurrency.Size = new System.Drawing.Size(100, 24);
+            this.cbBoxCurrency.TabIndex = 10;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(27, 113);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(65, 17);
+            this.label4.TabIndex = 11;
+            this.label4.Text = "Currency";
             // 
             // addProduct
             // 
@@ -131,6 +154,8 @@
             this.CancelButton = this.closeButton;
             this.ClientSize = new System.Drawing.Size(290, 291);
             this.ControlBox = false;
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.cbBoxCurrency);
             this.Controls.Add(this.additionalCostsButton);
             this.Controls.Add(this.closeButton);
             this.Controls.Add(this.addButton);
@@ -163,5 +188,7 @@
         private System.Windows.Forms.Button addButton;
         private System.Windows.Forms.Button closeButton;
         private System.Windows.Forms.Button additionalCostsButton;
+        private System.Windows.Forms.ComboBox cbBoxCurrency;
+        private System.Windows.Forms.Label label4;
     }
 }

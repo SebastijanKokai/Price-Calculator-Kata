@@ -32,7 +32,11 @@ namespace Challenge
             //changing the tax for products
             try
             {
-                Product.Tax = Convert.ToDouble(txtBoxChangedTax.Text);
+                double tax = Convert.ToDouble(txtBoxChangedTax.Text);
+                if (tax > 1 || tax <= 0)
+                    throw new Exception("Percentage must be between 0 and 1.");
+
+                Product.Tax = tax;
             }
             catch (Exception ex)
             {
@@ -51,10 +55,17 @@ namespace Challenge
                     {
                         if((int)cbBoxProducts.SelectedItem == product.Upc)
                         {
-                            product.selectiveDiscount.Discount = Convert.ToDouble(txtBoxChangedDiscount.Text);
+                            double selDiscount = Convert.ToDouble(txtBoxChangedDiscount.Text);
 
-                            if(rdButtonBTSelective.Checked)
+                            if (selDiscount > 1 || selDiscount <= 0)
+                                throw new Exception("Percentage must be between 0 and 1.");
+
+                            product.selectiveDiscount.Discount = selDiscount;
+
+                            if (rdButtonBTSelective.Checked)
                                 product.selectiveDiscount.beforeTax = true;
+                            else
+                                product.selectiveDiscount.beforeTax = false;
                         }
                     }
                 }
@@ -95,11 +106,12 @@ namespace Challenge
                         double price = (double)product.Price;
                         double tax = product.WhatIsTax();
                         double discounts = 0;
+                        string curr = product.Currency;
 
-                        display += $"Cost: ${price}\n";
+                        display += $"Cost: {price} {curr}\n";
 
                         if (tax > 0)
-                            display += $"Tax: ${tax}\n";
+                            display += $"Tax: {tax} {curr}\n";
 
                         //discounts
                         double uniDiscount = product.WhatIsUniversalDiscount();
@@ -115,7 +127,7 @@ namespace Challenge
                             else
                                 discounts = product.ReturnAdditiveDiscount();
 
-                            display += $"Discounts: ${discounts}\n";
+                            display += $"Discounts: {discounts} {curr}\n";
                         }    
                         
                         //additional costs
@@ -130,20 +142,20 @@ namespace Challenge
                             if (sign == "%")
                                 amount = Math.Round(price*amount, 2);
 
-                            display += $"{nameOf}: ${amount}\n";
+                            display += $"{nameOf}: {amount} {curr}\n";
 
                             addCost = Math.Round(addCost + amount,2);
                         }
 
                         double total = Math.Round(price + tax + addCost - discounts,2);
 
-                        display += $"Total: ${total}";
+                        display += $"Total: {total} {curr}";
 
                         displayRichTxtBox.Text = display;
 
                         //if discount is higher than 0, show the amount
                         if (discounts > 0)
-                        MessageBox.Show("Discount of product: $"  + discounts);
+                        MessageBox.Show($"Discount of product: {discounts} {curr}");
 
                         //if he found the product, no need to search any longer
                         break;
@@ -158,10 +170,17 @@ namespace Challenge
             //applying universal discount for all products
             try
             {
+                double uniDiscount = Convert.ToDouble(txtBoxUniDisc.Text);
+
+                if(uniDiscount > 1 || uniDiscount <= 0)
+                    throw new Exception("Percentage must be between 0 and 1.");
+
                 Product.UniversalDiscount = Convert.ToDouble(txtBoxUniDisc.Text);
 
-                if(rdButtonBTUniversal.Checked)
+                if (rdButtonBTUniversal.Checked)
                     Product.universalDiscount.beforeTax = true;
+                else
+                    Product.universalDiscount.beforeTax = false;
             }
             catch(Exception ex)
             {
@@ -201,7 +220,6 @@ namespace Challenge
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-
         }
     }
 }

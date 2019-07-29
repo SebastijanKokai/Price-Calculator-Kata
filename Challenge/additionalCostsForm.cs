@@ -30,6 +30,9 @@ namespace Challenge
                 bool isPercentage = radioButtonPerc.Checked;
                 double amount = Convert.ToDouble(txtBoxAmount.Text);
 
+                if (isPercentage && (amount <= 0 || amount > 1))
+                    throw new Exception("Percentage must be between 0 and 1.");
+
                 if (radioButtonAdministrative.Checked)
                     nameOf = radioButtonAdministrative.Text;
                 else if (radioButtonPackaging.Checked)
